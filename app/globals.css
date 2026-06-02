@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #5e3e05;
+  --color-secondary: #52652a;
+  --color-tertiary: #735c00;
+  --color-warm-accent: #bd3f32;
+  --color-paper-white: #ffffff;
+  --color-ink-black: #2a2621;
+  --color-background: #fbf9f4;
+  --color-surface: #fbf9f4;
+  --color-surface-container: #f0eee9;
+  --color-surface-container-low: #f5f3ee;
+  --color-surface-container-high: #eae8e3;
+  --color-surface-dim: #dbdad5;
+  --color-surface-variant: #e4e2dd;
+  --color-on-surface: #1b1c19;
+  --color-on-surface-variant: #4f4539;
+  --color-on-background: #1b1c19;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #79551d;
+  --color-secondary-container: #d1e99f;
+  --color-secondary-fixed-dim: #b9cf88;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 64px;
+  --spacing-section-gap: 80px;
+}
+
+body {
+  background: #fbf9f4;
+  color: #1b1c19;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined", sans-serif;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  line-height: 1;
+}
+
+.sunlit-shadow {
+  box-shadow: 0 4px 20px rgb(166 124 65 / 8%);
+}
+
+.font-headline-xl,
+.font-headline-lg,
+.font-headline-lg-mobile {
+  font-family: var(--font-eb-garamond), serif;
+}
+
+.font-body-md,
+.font-body-lg,
+.font-label-md,
+.font-caption {
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+.text-headline-xl {
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.text-headline-lg {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 500;
+}
+
+.text-headline-lg-mobile {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 500;
+}
+
+.text-body-md {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.text-body-lg {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+.text-label-md {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.text-caption {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+.px-margin-mobile {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.px-margin-desktop {
+  padding-left: 64px;
+  padding-right: 64px;
+}
+
+.py-section-gap {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.mb-section-gap {
+  margin-bottom: 80px;
+}
+
+.animate-fade-in {
+  animation: fade-in-up 700ms ease-out both;
+}
+
+.animate-float {
+  animation: float-y 4s ease-in-out infinite;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
