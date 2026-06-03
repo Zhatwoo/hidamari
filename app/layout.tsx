@@ -25,6 +25,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${plusJakarta.variable} ${ebGaramond.variable} h-full antialiased scroll-smooth`}
     >
       <head>
@@ -45,7 +46,12 @@ export default function RootLayout({
           href="https://cdn-uicons.flaticon.com/2.6.0/uicons-thin-rounded/css/uicons-thin-rounded.css"
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col"
+      >
+        {children}
+      </body>
     </html>
   );
 }

@@ -4,6 +4,12 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/app/components/shared/SiteHeader";
+import {
+  CallIcon,
+  LocationIcon,
+  ScheduleIcon,
+} from "@/app/components/shared/icons/ContactIcons";
+import { GoogleMapEmbed } from "@/app/components/shared/GoogleMapEmbed";
 import { SiteFooter } from "@/app/components/shared/SiteFooter";
 
 export function DinnerPage() {
