@@ -16,7 +16,7 @@ export function HeroSection() {
       {/* Full-screen montage video */}
       <HeroMontageVideo className="absolute inset-0 h-full w-full object-cover" />
 
-      <div className="absolute inset-0 bg-black/45" aria-hidden />
+      <div className="absolute inset-0 bg-black/65" aria-hidden />
 
       <div className="relative z-10 flex h-full flex-col justify-center items-center px-6 py-8 text-center">
         <div className="max-w-2xl space-y-6 md:space-y-8">

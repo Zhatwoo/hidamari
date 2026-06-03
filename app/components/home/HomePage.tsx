@@ -77,8 +77,8 @@ export function HomePage() {
                   just a 3-minute walk from Little Tokyo. I chose the name
                   Hidamari with great care, as I wanted it to be a comforting
                   space where people can relax amidst their busy lives, and to
-                  create a warm atmosphere reminiscent of returning to one's
-                  parents' home.
+                  create a warm atmosphere reminiscent of returning to one&apos;s
+                  parents&apos; home.
                 </p>
                 <div className="pt-4 flex gap-8">
                   {[
