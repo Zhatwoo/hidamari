@@ -1,251 +1,420 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SiteFooter } from "@/app/components/shared/SiteFooter";
 import { SiteHeader } from "@/app/components/shared/SiteHeader";
+import { SiteFooter } from "@/app/components/shared/SiteFooter";
 
 export function DinnerPage() {
+  const archLeftRef = useRef<HTMLDivElement>(null);
+  const archRightRef = useRef<HTMLDivElement>(null);
+  const drinkBgRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const tick = () => {
+      const y = window.scrollY;
+
+      // Left arch drifts down slowly
+      if (archLeftRef.current) {
+        archLeftRef.current.style.transform = `translateY(${y * 0.09}px)`;
+      }
+      // Right arch drifts up slightly (counter-movement)
+      if (archRightRef.current) {
+        archRightRef.current.style.transform = `translateY(${y * -0.06}px)`;
+      }
+      // Drink section bg subtle drift
+      if (drinkBgRef.current) {
+        const rect = drinkBgRef.current.getBoundingClientRect();
+        const offset = (window.innerHeight / 2 - rect.top - rect.height / 2);
+        drinkBgRef.current.style.backgroundPositionY = `${50 + offset * 0.03}%`;
+      }
+
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(tick);
+        ticking = true;
+      }
+    };
+
+    // Scroll-reveal for data-reveal elements
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("opacity-100", "translate-y-0");
+            e.target.classList.remove("opacity-0", "translate-y-8");
+          }
+        }),
+      { threshold: 0.08 }
+    );
+
+    document.querySelectorAll("[data-reveal]").forEach((el) => {
+      el.classList.add("transition-all", "duration-700", "opacity-0", "translate-y-8");
+      io.observe(el);
+    });
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      io.disconnect();
+    };
+  }, []);
+
   return (
     <>
       <SiteHeader active="dinner" />
-      <main className="pt-20 bg-background">
 
-        {/* ── Hero – Dinner at Hidamari ── */}
-        <section className="max-w-7xl mx-auto px-6 md:px-margin-desktop py-section-gap grid md:grid-cols-2 gap-14 items-center">
-          <div className="space-y-6">
-            <span className="font-label-md text-label-md text-tertiary tracking-[0.2em] uppercase">
-              Evening Experience
-            </span>
-            <h1
-              className="font-headline-xl text-primary"
-              style={{ fontSize: "48px", lineHeight: "56px" }}
-            >
-              Dinner at Hidamari
-            </h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-              Experience a calm, cozy evening atmosphere where slow Japanese
-              dining takes center stage. Immerse in our artisanal Japanese
-              dishes in the soft glow of evening.
-            </p>
-            <div className="flex items-center gap-2 font-body-md text-body-md text-on-surface-variant">
-              <span className="material-symbols-outlined text-primary text-xl">
-                schedule
-              </span>
-              <span>17:00 – 24:00 (Daily)</span>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/access"
-                className="bg-primary text-paper-white px-6 py-3 rounded-xl font-label-md text-label-md hover:opacity-90 transition-all active:scale-95"
-              >
-                View Menu
-              </Link>
-              <Link
-                href="/access"
-                className="border border-primary/30 text-primary px-6 py-3 rounded-xl font-label-md text-label-md hover:bg-primary/5 transition-all"
-              >
-                View Drink Menu
-              </Link>
-            </div>
+      {/* ── Fixed right sidebar ── */}
+      <aside className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 flex-col gap-4 p-4 z-40 bg-surface-container-low rounded-l-xl"
+        style={{ boxShadow: "4px 20px 20px rgba(166,124,65,0.08)" }}
+      >
+        <div className="flex flex-col items-center mb-4">
+          <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-paper-white mb-1">
+            <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>restaurant</span>
           </div>
+          <p className="font-label-md text-primary uppercase tracking-widest" style={{ fontSize: "9px" }}>
+            Reservations
+          </p>
+        </div>
+        <Link
+          href="/access"
+          className="flex flex-col items-center gap-1 p-3 bg-secondary-container/30 text-secondary rounded-lg hover:-translate-x-1 transition-transform"
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>calendar_today</span>
+          <span className="font-label-md" style={{ fontSize: "9px" }}>Book a Table</span>
+        </Link>
+        <Link
+          href="/access"
+          className="flex flex-col items-center gap-1 p-3 text-on-surface-variant hover:bg-primary/5 hover:-translate-x-1 transition-transform rounded-lg"
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>restaurant</span>
+          <span className="font-label-md" style={{ fontSize: "9px" }}>Bento Orders</span>
+        </Link>
+      </aside>
 
-          {/* DINNER & DRINK arched image buttons */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="relative h-[340px] rounded-[2.5rem] overflow-hidden sunlit-shadow group cursor-pointer">
-              <Image
-                src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_dinner_btn.png/screen.png"
-                alt="Dinner menu"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-black/75 to-transparent" />
-              <div className="absolute bottom-6 inset-x-0 text-center text-paper-white">
-                <h3 className="font-headline-lg text-headline-lg tracking-widest">
-                  DINNER
-                </h3>
-                <span className="font-label-md text-label-md opacity-70">
-                  VIEW MENU
-                </span>
+      <main className="pt-20 bg-surface overflow-x-hidden">
+
+        {/* ══════════════════════════════════════════
+            HERO
+        ══════════════════════════════════════════ */}
+        <section className="relative px-6 md:px-margin-desktop py-section-gap max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row gap-4 items-center">
+
+            {/* Left – text */}
+            <div className="w-full md:w-1/2 text-center md:text-left z-10" data-reveal>
+              <span className="inline-block px-3 py-1 mb-4 bg-tertiary/10 text-tertiary font-label-md text-caption uppercase tracking-[1px] rounded-full">
+                Evening Experience
+              </span>
+              <h1 className="font-headline-xl text-headline-xl text-primary mb-6">
+                Dinner at Hidamari
+              </h1>
+              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-lg mb-8 mx-auto md:mx-0">
+                Experience a warm, cozy evening atmosphere where time slows down.
+                Indulge in our artisanal Japanese dishes under the soft glow of dusk.
+              </p>
+              <div className="flex items-center gap-2 text-primary justify-center md:justify-start">
+                <span className="material-symbols-outlined">schedule</span>
+                <span className="font-body-md text-body-md">17:00 – 24:00 Daily</span>
               </div>
             </div>
-            <div className="relative h-[340px] rounded-[2.5rem] overflow-hidden sunlit-shadow group cursor-pointer">
-              <Image
-                src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_drink_btn.png/screen.png"
-                alt="Drink menu"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-black/75 to-transparent" />
-              <div className="absolute bottom-6 inset-x-0 text-center text-paper-white">
-                <h3 className="font-headline-lg text-headline-lg tracking-widest">
-                  DRINK
-                </h3>
-                <span className="font-label-md text-label-md opacity-70">
-                  VIEW MENU
-                </span>
+
+            {/* Right – arched image pair with parallax */}
+            <div className="w-full md:w-1/2 grid grid-cols-2 gap-4">
+
+              {/* Left arch – offset down, drifts down on scroll */}
+              <div
+                ref={archLeftRef}
+                className="space-y-4 pt-12 will-change-transform"
+              >
+                <div
+                  className="relative overflow-hidden sunlit-shadow group cursor-pointer transition-transform hover:-translate-y-2 duration-500"
+                  style={{ borderRadius: "200px 200px 12px 12px", height: "320px" }}
+                >
+                  <Image
+                    src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_dinner_btn.png/screen.png"
+                    alt="Dinner"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  {/* Overlay label */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink-black/60 to-ink-black/10 flex flex-col items-center justify-end pb-8">
+                    <span className="font-headline-lg text-headline-lg text-paper-white tracking-widest">
+                      DINNER
+                    </span>
+                    <span className="font-label-md text-label-md text-warm-accent tracking-widest mt-1">
+                      VIEW MENU
+                    </span>
+                  </div>
+                </div>
               </div>
+
+              {/* Right arch – taller, drifts up on scroll */}
+              <div
+                ref={archRightRef}
+                className="space-y-4 will-change-transform"
+              >
+                <div
+                  className="relative overflow-hidden sunlit-shadow group cursor-pointer transition-transform hover:-translate-y-2 duration-500"
+                  style={{ borderRadius: "200px 200px 12px 12px", height: "384px" }}
+                >
+                  <Image
+                    src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_drink_btn.png/screen.png"
+                    alt="Drinks"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink-black/60 to-ink-black/10 flex flex-col items-center justify-end pb-8">
+                    <span className="font-headline-lg text-headline-lg text-paper-white tracking-widest">
+                      DRINK
+                    </span>
+                    <span className="font-label-md text-label-md text-warm-accent tracking-widest mt-1">
+                      VIEW MENU
+                    </span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
 
-        {/* ── Extensive Drink Selection ── */}
-        <section className="bg-surface-container-low py-section-gap px-6 md:px-margin-desktop">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <span className="font-label-md text-label-md text-tertiary tracking-[0.2em] uppercase">
-                Drink Category
-              </span>
-              <h2 className="font-headline-xl text-headline-xl text-primary mt-2">
+        {/* ══════════════════════════════════════════
+            EXTENSIVE DRINK SELECTION
+        ══════════════════════════════════════════ */}
+        <section
+          ref={drinkBgRef}
+          className="bg-surface-container-low py-section-gap"
+        >
+          <div className="max-w-7xl mx-auto px-6 md:px-margin-desktop">
+
+            <div className="text-center mb-16" data-reveal>
+              <h2 className="font-headline-xl text-headline-xl text-primary mb-4">
                 Extensive Drink Selection
               </h2>
-              <p className="font-body-lg text-body-lg text-on-surface-variant mt-3 max-w-xl mx-auto leading-relaxed">
-                From Japanese draft beer to sake, whiskey, and cocktails — a
-                beverage designed to complement your evening masterfully.
+              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                From Japanese draft beers to curated sake, our beverage menu is designed
+                to complement your evening meal perfectly.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {/* Japanese Draft – photo card */}
-              <div className="relative h-[280px] rounded-2xl overflow-hidden sunlit-shadow group">
-                <Image
-                  src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_drink_btn.png/screen.png"
-                  alt="Japanese Draft Beer"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-black/65 to-transparent" />
-                <div className="absolute bottom-4 left-4 text-paper-white">
-                  <h3 className="font-headline-lg-mobile text-headline-lg-mobile">
+            {/* 12-column auto-rows grid */}
+            <div
+              className="grid grid-cols-1 md:grid-cols-12 gap-6"
+              style={{ gridAutoRows: "280px" }}
+            >
+
+              {/* Draft Beer – col-span-8, split image+text */}
+              <div
+                className="md:col-span-8 relative rounded-xl overflow-hidden sunlit-shadow bg-paper-white flex flex-col md:flex-row group transition-all duration-300"
+                data-reveal
+              >
+                <div className="relative w-full md:w-1/2 h-48 md:h-full overflow-hidden">
+                  <Image
+                    src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_drink_btn.png/screen.png"
+                    alt="Draft Beer"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+                  <h3 className="font-headline-lg text-headline-lg text-primary mb-4">
                     Japanese Draft
                   </h3>
-                  <p className="font-body-md opacity-80 text-sm mt-0.5">
-                    Sapporo · Kirin
+                  <p className="font-body-md text-body-md text-on-surface-variant mb-6">
+                    Experience the crisp taste of Sapporo Premium, Kuro, and Kirin
+                    Ichiban Shibori, poured to perfection.
                   </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Sapporo", "Kirin", "Draft"].map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2 py-1 bg-secondary-container/20 text-on-secondary-container rounded font-label-md uppercase"
+                        style={{ fontSize: "10px", letterSpacing: "0.06em" }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Sake & Shochu – dark card */}
-              <div className="bg-primary-container rounded-2xl p-6 h-[280px] flex flex-col justify-between text-paper-white">
-                <div>
-                  <span className="font-label-md text-label-md uppercase tracking-widest opacity-60">
-                    Premium
-                  </span>
-                  <h3 className="font-headline-lg-mobile text-headline-lg-mobile mt-2">
-                    Sake &amp; Shochu
-                  </h3>
-                  <p className="font-body-md opacity-80 mt-3 text-sm leading-relaxed">
-                    Curated selection of traditional Japanese sake and premium
-                    shochu varieties.
-                  </p>
-                </div>
+              {/* Sake & Shochu – col-span-4, dark card */}
+              <div
+                className="md:col-span-4 rounded-xl overflow-hidden sunlit-shadow bg-primary text-paper-white p-8 flex flex-col justify-end group transition-all duration-300 hover:bg-primary-container cursor-pointer"
+                data-reveal
+              >
+                <span
+                  className="material-symbols-outlined text-4xl mb-6 opacity-80"
+                  style={{ fontVariationSettings: "'FILL' 1" }}
+                >
+                  liquor
+                </span>
+                <h3 className="font-headline-lg text-headline-lg mb-2">
+                  Sake &amp; Shochu
+                </h3>
+                <p className="font-body-md text-body-md opacity-90">
+                  A curated collection of regional favorites from across Japan,
+                  available by the glass or bottle.
+                </p>
               </div>
 
-              {/* Whiskey – photo card */}
-              <div className="relative h-[280px] rounded-2xl overflow-hidden sunlit-shadow group">
-                <Image
-                  src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_dinner_btn.png/screen.png"
-                  alt="Whiskey"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-black/65 to-transparent" />
-                <div className="absolute bottom-4 left-4 text-paper-white">
-                  <h3 className="font-headline-lg-mobile text-headline-lg-mobile">
+              {/* Whiskey – col-span-4, white card */}
+              <div
+                className="md:col-span-4 rounded-xl overflow-hidden sunlit-shadow bg-paper-white p-8 flex flex-col group transition-all duration-300 cursor-pointer"
+                data-reveal
+              >
+                <div className="mb-auto">
+                  <h3 className="font-headline-lg text-headline-lg text-primary mb-2">
                     Whiskey
                   </h3>
-                  <p className="font-body-md opacity-80 text-sm mt-0.5">
-                    Suntory, Nikka &amp; more
+                  <p className="font-body-md text-body-md text-on-surface-variant">
+                    Suntory Hibiki, Yamazaki, and more. Bottle keeping services
+                    available for our regulars.
                   </p>
+                </div>
+                <div className="mt-8 flex items-center justify-between">
+                  <span className="font-body-md text-primary font-bold">
+                    Explore Premium Labels
+                  </span>
+                  <span className="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">
+                    arrow_forward
+                  </span>
                 </div>
               </div>
 
-              {/* A Space for 65 Guests – dark card */}
-              <div className="bg-secondary rounded-2xl p-6 h-[280px] flex flex-col justify-between text-paper-white">
-                <div>
-                  <span className="font-label-md text-label-md uppercase tracking-widest opacity-60">
-                    Private Space
-                  </span>
-                  <h3 className="font-headline-lg-mobile text-headline-lg-mobile mt-2">
+              {/* A Space for 65 Guests – col-span-8, photo card */}
+              <div
+                className="md:col-span-8 relative rounded-xl overflow-hidden sunlit-shadow group cursor-pointer transition-all duration-300"
+                data-reveal
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-black/80 to-transparent z-10" />
+                <Image
+                  src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo003.png/screen.png"
+                  alt="Restaurant Interior"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-1000"
+                />
+                <div className="absolute bottom-0 left-0 p-8 z-20 text-paper-white">
+                  <h3 className="font-headline-lg text-headline-lg mb-2">
                     A Space for 65 Guests
                   </h3>
-                  <p className="font-body-md opacity-80 mt-3 text-sm leading-relaxed">
-                    Reserve our full restaurant or private rooms for events,
-                    parties, and celebrations.
+                  <p className="font-body-md text-body-md opacity-90 max-w-md">
+                    Private rooms for 8–18 guests and a lively bar counter for
+                    solo diners.
                   </p>
                 </div>
               </div>
-            </div>
 
-            <div className="text-center mt-10">
-              <Link
-                href="/access"
-                className="inline-flex items-center gap-2 font-label-md text-label-md text-primary hover:underline"
-              >
-                Explore Premium Labels
-                <span className="material-symbols-outlined text-lg">
-                  arrow_forward
-                </span>
-              </Link>
             </div>
           </div>
         </section>
 
-        {/* ── Visit Us ── */}
-        <section className="py-section-gap px-6 md:px-margin-desktop">
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <span className="font-label-md text-label-md text-tertiary tracking-[0.2em] uppercase">
+        {/* ══════════════════════════════════════════
+            VISIT US
+        ══════════════════════════════════════════ */}
+        <section className="max-w-7xl mx-auto px-6 md:px-margin-desktop py-section-gap">
+          <div className="flex flex-col md:flex-row gap-20">
+
+            {/* Info */}
+            <div className="w-full md:w-1/2" data-reveal>
+              <h2 className="font-headline-xl text-headline-xl text-primary mb-8">
                 Visit Us
-              </span>
-              <div className="space-y-4 font-body-md text-body-md text-on-surface-variant">
-                <div className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl mt-0.5 shrink-0">
+              </h2>
+              <div className="space-y-8">
+
+                <div className="flex gap-4">
+                  <span
+                    className="material-symbols-outlined text-primary mt-0.5 shrink-0"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                  >
                     location_on
                   </span>
-                  <p>
-                    4th Floor, Penthouse, Creekside Building, Amorsolo corner
-                    V.A. Rufino Sts., Legaspi Village, Makati City
-                  </p>
+                  <div>
+                    <h4 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">
+                      Location
+                    </h4>
+                    <p className="font-body-md text-body-md text-on-surface-variant">
+                      4th Floor, Penthouse, Creekside Building, Amorsolo corner
+                      V.A. Rufino Sts., Legaspi Village, Makati City
+                    </p>
+                    <p className="font-caption text-caption text-primary mt-2 italic">
+                      3-minute walk from Little Tokyo and Cinema Square
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl shrink-0">
+
+                <div className="flex gap-4">
+                  <span
+                    className="material-symbols-outlined text-primary shrink-0"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                  >
                     call
                   </span>
-                  <p
-                    className="font-headline-lg-mobile text-headline-lg-mobile text-primary"
-                  >
-                    02-8659-6120
-                  </p>
+                  <div>
+                    <h4 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">
+                      Phone
+                    </h4>
+                    <p className="font-headline-lg text-headline-lg text-primary">
+                      02-8659-6120
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-primary text-xl mt-0.5 shrink-0">
-                    mail
+
+                <div className="flex gap-4">
+                  <span
+                    className="material-symbols-outlined text-primary shrink-0"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                  >
+                    credit_card
                   </span>
-                  <p>Reservations accepted by phone or in-person</p>
+                  <div>
+                    <h4 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">
+                      Payments
+                    </h4>
+                    <p className="font-body-md text-body-md text-on-surface-variant">
+                      VISA, MASTER, AMEX, JCB
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Map placeholder */}
+            <div className="w-full md:w-1/2 rounded-xl overflow-hidden sunlit-shadow h-[400px]" data-reveal>
+              <div className="relative w-full h-full bg-surface-container flex items-center justify-center">
+                <Image
+                  src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo004.png/screen.png"
+                  alt="Map area"
+                  fill
+                  className="object-cover grayscale opacity-30"
+                />
+                <div className="relative z-10 text-center p-8 bg-paper-white/90 backdrop-blur-sm rounded-xl sunlit-shadow max-w-xs">
+                  <span
+                    className="material-symbols-outlined text-primary block mb-2"
+                    style={{ fontSize: "40px" }}
+                  >
+                    restaurant
+                  </span>
+                  <h5 className="font-body-md font-bold text-primary mb-1">
+                    Hidamari Japanese Restaurant
+                  </h5>
+                  <p className="font-caption text-caption text-on-surface-variant">
+                    Creekside Building Penthouse
+                  </p>
+                  <button className="mt-4 font-body-md text-primary font-bold border-b border-primary pb-1 hover:opacity-70 transition-opacity">
+                    Open in Maps
+                  </button>
                 </div>
               </div>
             </div>
 
-            {/* Map placeholder / logo card */}
-            <div className="bg-surface-container rounded-2xl p-8 sunlit-shadow flex flex-col items-center justify-center text-center h-[260px]">
-              <div className="w-16 h-16 rounded-full overflow-hidden mb-4 border-2 border-primary/10">
-                <Image
-                  src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_toplogo.png/screen.png"
-                  alt="Hidamari logo"
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
-                Hidamari Japanese Restaurant
-              </h3>
-              <Link
-                href="/access"
-                className="mt-4 font-label-md text-label-md text-primary hover:underline"
-              >
-                Open in Maps →
-              </Link>
-            </div>
           </div>
         </section>
 
