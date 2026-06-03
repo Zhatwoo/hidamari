@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/app/components/shared/SiteHeader";
 import { SiteFooter } from "@/app/components/shared/SiteFooter";
+import { useLanguage } from "@/app/components/shared/LanguageProvider";
+import { menuItemDescJa } from "@/app/lib/i18n/menu-item-desc-ja";
+import type { Locale } from "@/app/lib/i18n/types";
 
 /* ─── Menu Data ─────────────────────────────────────────────── */
 
@@ -397,7 +400,24 @@ const sections: Section[] = [
 
 /* ─── Component ─────────────────────────────────────────────── */
 
+type MenuScheduleId = "lunch" | "dinner" | "drinks" | "bento";
+
+function categoryNote(
+  locale: Locale,
+  note: string | undefined,
+  teishoku: string,
+  hotPot: string
+): string | undefined {
+  if (!note) return undefined;
+  if (locale === "ja") {
+    if (note.includes("2 persons")) return hotPot;
+    if (note.includes("steamed rice")) return teishoku;
+  }
+  return note;
+}
+
 export function MenuPage() {
+  const { locale, t, messages } = useLanguage();
   const [activeTab, setActiveTab] = useState("lunch");
   const tabBarRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -464,16 +484,16 @@ export function MenuPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-ink-black/30 to-ink-black/10" />
           <div className="relative z-10 w-full pb-12 text-center">
             <span className="font-label-md text-label-md text-paper-white/70 uppercase tracking-[0.3em] block mb-2">
-              ひだまりレストラン
+              {t("menu.heroBrand")}
             </span>
             <h1
               className="font-headline-xl text-primary"
               style={{ fontSize: "64px", lineHeight: 1 }}
             >
-              MENU
+              {t("menu.heroTitle")}
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant mt-2">
-              Lunch · Dinner · Drinks · Bento
+              {t("menu.heroSubtitle")}
             </p>
           </div>
         </section>
@@ -485,22 +505,22 @@ export function MenuPage() {
           style={{ top: "80px" }}
         >
           <div className="max-w-5xl mx-auto px-6 flex items-center gap-1 overflow-x-auto">
-            {sections.map(({ id, label, jp }) => (
+            {sections.map((section) => (
               <button
-                key={id}
-                onClick={() => scrollToSection(id)}
+                key={section.id}
+                onClick={() => scrollToSection(section.id)}
                 className={`flex-shrink-0 flex flex-col items-center gap-0.5 px-6 py-4 border-b-2 transition-all font-label-md text-label-md ${
-                  activeTab === id
+                  activeTab === section.id
                     ? "border-primary text-primary"
                     : "border-transparent text-on-surface-variant hover:text-primary hover:border-primary/30"
                 }`}
               >
-                <span>{label}</span>
+                <span>{locale === "ja" ? section.jp : section.label}</span>
                 <span
                   className="font-caption opacity-60"
                   style={{ fontSize: "10px", fontFamily: "serif" }}
                 >
-                  {jp}
+                  {locale === "ja" ? section.label : section.jp}
                 </span>
               </button>
             ))}
@@ -529,11 +549,11 @@ export function MenuPage() {
                     className="font-headline-xl text-primary -mt-3"
                     style={{ fontSize: "44px", lineHeight: "52px" }}
                   >
-                    {section.label}
+                    {locale === "ja" ? section.jp : section.label}
                   </h2>
                   <p className="font-body-md text-body-md text-on-surface-variant mt-2 flex items-center gap-2">
                     <span className="material-symbols-outlined text-tertiary text-base">schedule</span>
-                    {section.schedule}
+                    {messages.menu.schedules[section.id as MenuScheduleId]}
                   </p>
                 </div>
                 {/* Section photo thumbnail */}
@@ -553,11 +573,9 @@ export function MenuPage() {
                 <div className="mb-10 bg-secondary-container/30 rounded-xl p-5 flex items-start gap-3 reveal-on-scroll">
                   <span className="material-symbols-outlined text-secondary mt-0.5">info</span>
                   <div>
-                    <p className="font-label-md text-label-md text-secondary mb-1">How to Order Bento</p>
+                    <p className="font-label-md text-label-md text-secondary mb-1">{t("menu.howOrderBento")}</p>
                     <p className="font-body-md text-body-md text-on-surface-variant">
-                      Please place your order by phone at{" "}
-                      <strong className="text-primary">02-8659-6120</strong> during ordering hours.
-                      Pick-up is available at the restaurant entrance.
+                      {t("menu.howOrderBentoBody")}
                     </p>
                   </div>
                 </div>
@@ -568,9 +586,8 @@ export function MenuPage() {
                 <div className="mb-10 bg-warm-accent/8 border border-warm-accent/20 rounded-xl p-5 flex items-start gap-3 reveal-on-scroll">
                   <span className="material-symbols-outlined text-warm-accent mt-0.5">warning</span>
                   <p className="font-body-md text-body-md text-on-surface-variant">
-                    <strong className="text-warm-accent">Notice:</strong> Weekday lunch is temporarily
-                    suspended from May 16. Lunch is available on{" "}
-                    <strong>weekends and public holidays only</strong>.
+                    <strong className="text-warm-accent">{t("menu.lunchNotice")}</strong>{" "}
+                    {t("menu.lunchNoticeBody")}
                   </p>
                 </div>
               )}
@@ -584,13 +601,13 @@ export function MenuPage() {
                       <span
                         className="font-label-md text-label-md text-tertiary uppercase tracking-[0.2em]"
                       >
-                        {cat.name}
+                        {locale === "ja" ? cat.jp : cat.name}
                       </span>
                       <span
                         className="text-primary opacity-40"
                         style={{ fontFamily: "serif", fontSize: "20px", lineHeight: 1 }}
                       >
-                        {cat.jp}
+                        {locale === "ja" ? cat.name : cat.jp}
                       </span>
                     </div>
                     <div className="flex-1 h-px bg-primary/10" />
@@ -599,7 +616,13 @@ export function MenuPage() {
                   {/* Note */}
                   {cat.note && (
                     <p className="font-caption text-caption text-on-surface-variant/70 italic mb-5 pl-1">
-                      * {cat.note}
+                      *{" "}
+                      {categoryNote(
+                        locale,
+                        cat.note,
+                        messages.menu.notes.teishokuSet,
+                        messages.menu.notes.hotPot
+                      )}
                     </p>
                   )}
 
@@ -613,17 +636,19 @@ export function MenuPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-baseline gap-2 flex-wrap">
                             <h3 className="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
-                              {item.name}
+                              {locale === "ja" ? item.jp : item.name}
                             </h3>
                             <span
                               className="text-primary/30 italic shrink-0"
                               style={{ fontFamily: "serif", fontSize: "13px" }}
                             >
-                              {item.jp}
+                              {locale === "ja" ? item.name : item.jp}
                             </span>
                           </div>
                           <p className="font-caption text-caption text-on-surface-variant mt-1 leading-relaxed">
-                            {item.desc}
+                            {locale === "ja"
+                              ? (menuItemDescJa[item.name] ?? item.desc)
+                              : item.desc}
                           </p>
                         </div>
                         <span className="font-label-md text-label-md text-primary shrink-0 tabular-nums pt-0.5">
@@ -644,25 +669,23 @@ export function MenuPage() {
 
             <div className="bg-primary-container rounded-2xl p-8 text-paper-white">
               <span className="material-symbols-outlined text-3xl mb-3 block">liquor</span>
-              <h3 className="font-headline-lg-mobile text-headline-lg-mobile mb-2">Bottle Keep</h3>
+              <h3 className="font-headline-lg-mobile text-headline-lg-mobile mb-2">{t("menu.bottleKeep")}</h3>
               <p className="font-body-md text-body-md opacity-80 leading-relaxed">
-                Store your favourite bottle with us for your next visit. Ask our staff for details
-                on our bottle-keep service — available for whiskey, shochu, and wine.
+                {t("menu.bottleKeepBody")}
               </p>
             </div>
 
             <div className="bg-secondary rounded-2xl p-8 text-paper-white">
               <span className="material-symbols-outlined text-3xl mb-3 block">groups</span>
-              <h3 className="font-headline-lg-mobile text-headline-lg-mobile mb-2">Private Dining</h3>
+              <h3 className="font-headline-lg-mobile text-headline-lg-mobile mb-2">{t("menu.privateDining")}</h3>
               <p className="font-body-md text-body-md opacity-80 leading-relaxed mb-4">
-                Private rooms available for 8–10 and 16–18 guests. Full restaurant buyout
-                accommodates up to 65. Inquire for custom menus and packages.
+                {t("menu.privateDiningBody")}
               </p>
               <Link
                 href="/access"
                 className="inline-flex items-center gap-2 bg-paper-white text-secondary px-5 py-2.5 rounded-xl font-label-md text-label-md hover:opacity-90 transition-all"
               >
-                Enquire Now
+                {t("menu.enquireNow")}
                 <span className="material-symbols-outlined text-base">arrow_forward</span>
               </Link>
             </div>
@@ -676,7 +699,7 @@ export function MenuPage() {
             <div className="flex items-center gap-3">
               <span className="material-symbols-outlined text-primary">credit_card</span>
               <span className="font-label-md text-label-md text-on-surface-variant">
-                Cards Accepted
+                {t("menu.cardsAccepted")}
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -690,9 +713,7 @@ export function MenuPage() {
               ))}
             </div>
             <p className="font-body-md text-body-md text-on-surface-variant text-center md:text-right">
-              Reservations via phone or in-person.
-              <br />
-              <strong className="text-primary">02-8659-6120</strong>
+              {t("menu.reservationsPhone")}
             </p>
           </div>
         </section>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { EB_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { AppProviders } from "@/app/components/providers/AppProviders";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -32,7 +33,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className="min-h-full flex flex-col"
       >
-        {children}
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );
