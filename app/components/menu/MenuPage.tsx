@@ -450,7 +450,7 @@ export function MenuPage() {
     <>
       <SiteHeader active="menu" />
 
-      <main className="pt-20 bg-background">
+      <main className="pt-[9.5rem] bg-background">
 
         {/* ── Hero ── */}
         <section className="relative h-[50vh] min-h-[360px] overflow-hidden flex items-end">

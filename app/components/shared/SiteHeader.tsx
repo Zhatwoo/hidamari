@@ -17,15 +17,16 @@ export function SiteHeader({ active }: SiteHeaderProps) {
   return (
     <header className="fixed top-0 w-full z-50 bg-paper-white/85 backdrop-blur-md shadow-sm">
       <nav className="flex justify-between items-center px-6 md:px-margin-desktop h-20 max-w-7xl mx-auto w-full">
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center shrink-0">
           <Image
             src="/logo_hidamari-removebg-preview.png"
             alt="Hidamari logo"
-            width={44}
-            height={44}
-            className="object-contain"
+            width={250}
+            height={250}
+            className="object-contain object-left h-20 w-auto max-h-20 shrink-0"
+            priority
           />
-          <span className="font-headline-lg text-headline-lg text-primary tracking-tight">
+          <span className="font-headline-lg text-headline-lg text-primary tracking-tight -ml-3">
             Hidamari
           </span>
         </Link>

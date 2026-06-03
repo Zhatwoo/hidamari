@@ -6,9 +6,9 @@ export const HIDAMARI_GOOGLE_MAPS_URL =
 export const HIDAMARI_GOOGLE_MAPS_EMBED_URL =
   "https://maps.google.com/maps?q=14.5550925,121.0145283&hl=en&z=17&output=embed";
 
-/** Hero montage background video (public/landingPhotos). */
+/** Hero background video (public/landingPhotos/HIdaamari ad.mp4). */
 export const HIDAMARI_MONTAGE_VIDEO =
-  "/landingPhotos/Hidamari%20Montage%20.mp4";
+  "/landingPhotos/HIdaamari%20ad.mp4";
 
 export const HIDAMARI_PHONE_DISPLAY = "02-8659-6120";
 export const HIDAMARI_PHONE_TEL = "tel:+63286596120";

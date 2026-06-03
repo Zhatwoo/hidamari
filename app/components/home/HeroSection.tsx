@@ -20,9 +20,10 @@ export function HeroSection() {
 
       <div className="relative z-10 flex h-full flex-col justify-center items-center px-6 py-8 text-center">
         <div className="max-w-2xl space-y-6 md:space-y-8">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-paper-white/15 border border-paper-white/25 font-label-md text-[11px] text-paper-white uppercase tracking-widest backdrop-blur-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary-fixed shrink-0" />
-            Japanese Artisanal Dining
+          <span className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-paper-white/15 border border-paper-white/25 font-label-md text-[11px] text-paper-white uppercase tracking-[0.18em] backdrop-blur-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-fixed shrink-0" aria-hidden />
+            <span>Japanese Artisanal Dining</span>
+            <span className="w-1.5 h-1.5 shrink-0 invisible" aria-hidden />
           </span>
 
           <h1
