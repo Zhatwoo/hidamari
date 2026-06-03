@@ -1,101 +1,87 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
 
 export function SiteFooter() {
   return (
-    <footer className="w-full bg-surface-container border-t border-primary/10">
-      <div className="max-w-7xl mx-auto px-6 md:px-margin-desktop pt-16 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+    <footer className="bg-surface-container w-full py-section-gap border-t border-primary/10">
 
-          {/* Brand */}
-          <div className="md:col-span-1 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-primary/10">
-                <Image
-                  src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_toplogo.png/screen.png"
-                  alt="Hidamari logo"
-                  width={40}
-                  height={40}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span className="font-headline-lg text-headline-lg-mobile text-primary">
-                Hidamari
-              </span>
-            </div>
-            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-              A sunlit spot for mindful Japanese dining in Makati, inspired by
-              the warmth of home.
-            </p>
-          </div>
+      <div className="flex flex-col md:flex-row justify-between items-start px-6 md:px-margin-desktop max-w-7xl mx-auto gap-10">
 
-          {/* Explore More */}
-          <div className="space-y-4">
-            <h4 className="font-label-md text-label-md text-primary uppercase tracking-widest">
-              Explore More
-            </h4>
-            <ul className="space-y-2 font-body-md text-body-md text-on-surface-variant">
-              <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
-              <li><Link href="/lunch" className="hover:text-primary transition-colors">Lunch</Link></li>
-              <li><Link href="/dinner" className="hover:text-primary transition-colors">Dinner</Link></li>
-              <li><Link href="/access" className="hover:text-primary transition-colors">Reservations</Link></li>
-            </ul>
-          </div>
-
-          {/* Shop Info */}
-          <div className="space-y-4">
-            <h4 className="font-label-md text-label-md text-primary uppercase tracking-widest">
-              Shop Info
-            </h4>
-            <ul className="space-y-2 font-body-md text-body-md text-on-surface-variant">
-              <li><Link href="/access" className="hover:text-primary transition-colors">Access &amp; Map</Link></li>
-              <li><Link href="/access" className="hover:text-primary transition-colors">Bento Orders</Link></li>
-              <li><Link href="/access" className="hover:text-primary transition-colors">Private Dining</Link></li>
-              <li><Link href="/access" className="hover:text-primary transition-colors">Party Space</Link></li>
-            </ul>
-          </div>
-
-          {/* Links / Legal */}
-          <div className="space-y-4">
-            <h4 className="font-label-md text-label-md text-primary uppercase tracking-widest">
-              Links
-            </h4>
-            <ul className="space-y-2 font-body-md text-body-md text-on-surface-variant">
-              <li><span className="hover:text-primary transition-colors cursor-pointer">Privacy Policy</span></li>
-              <li><span className="hover:text-primary transition-colors cursor-pointer">Terms of Service</span></li>
-              <li>
-                <a
-                  href="https://www.facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition-colors"
-                >
-                  Facebook
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition-colors"
-                >
-                  Instagram
-                </a>
-              </li>
-            </ul>
-          </div>
+        {/* Brand */}
+        <div className="max-w-xs">
+          <div className="font-headline-lg text-headline-lg text-primary mb-4">Hidamari</div>
+          <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Experience a comforting space where people can relax amidst their busy
+            lives, in the heart of Makati City.
+          </p>
         </div>
 
-        <div className="border-t border-primary/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="font-caption text-caption text-on-surface-variant opacity-60">
-            © 2024 Hidamari Japanese Restaurant. All Rights Reserved.
-          </p>
-          <p className="font-caption text-caption text-on-surface-variant opacity-40 tracking-widest uppercase">
-            言語切り替え / Switch Language
-          </p>
+        {/* 3-column nav grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-12 mt-8 md:mt-0">
+
+          <div className="flex flex-col gap-2">
+            <h5 className="font-label-md text-label-md text-primary uppercase tracking-widest mb-4">
+              Explore
+            </h5>
+            {[
+              { label: "Home", href: "/" },
+              { label: "Lunch", href: "/lunch" },
+              { label: "Dinner", href: "/dinner" },
+            ].map(({ label, href }) => (
+              <Link
+                key={label}
+                href={href}
+                className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <h5 className="font-label-md text-label-md text-primary uppercase tracking-widest mb-4">
+              Shop Info
+            </h5>
+            {[
+              { label: "Access", href: "/access" },
+              { label: "Bento Orders", href: "/access" },
+              { label: "Membership Bar", href: "/access" },
+            ].map(({ label, href }) => (
+              <Link
+                key={label}
+                href={href}
+                className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <h5 className="font-label-md text-label-md text-primary uppercase tracking-widest mb-4">
+              Legal
+            </h5>
+            {["Privacy Policy", "Terms of Service", "Careers"].map((item) => (
+              <span
+                key={item}
+                className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+
         </div>
       </div>
+
+      {/* Bottom bar */}
+      <div className="max-w-7xl mx-auto px-6 md:px-margin-desktop mt-12 pt-8 border-t border-primary/5">
+        <p className="font-caption text-caption text-on-surface-variant opacity-70">
+          © 2024 Hidamari Japanese Restaurant. All Rights Reserved.
+        </p>
+      </div>
+
     </footer>
   );
 }

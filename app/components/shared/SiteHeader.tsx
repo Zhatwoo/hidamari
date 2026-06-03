@@ -2,13 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 
 type SiteHeaderProps = {
-  active: "home" | "lunch" | "dinner" | "access";
+  active: "home" | "lunch" | "dinner" | "menu" | "access";
 };
 
 const navItems = [
   { key: "home", label: "Home", href: "/" },
   { key: "lunch", label: "Lunch", href: "/lunch" },
   { key: "dinner", label: "Dinner", href: "/dinner" },
+  { key: "menu", label: "Menu", href: "/menu" },
   { key: "access", label: "Access", href: "/access" },
 ] as const;
 
@@ -18,11 +19,11 @@ export function SiteHeader({ active }: SiteHeaderProps) {
       <nav className="flex justify-between items-center px-6 md:px-margin-desktop h-20 max-w-7xl mx-auto w-full">
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_toplogo.png/screen.png"
+            src="/logo_hidamari-removebg-preview.png"
             alt="Hidamari logo"
             width={44}
             height={44}
-            className="rounded-full"
+            className="object-contain"
           />
           <span className="font-headline-lg text-headline-lg text-primary tracking-tight">
             Hidamari
