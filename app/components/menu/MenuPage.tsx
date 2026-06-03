@@ -19,14 +19,16 @@ type Section = {
   categories: Category[];
 };
 
+const appetizerImage = (name: string) =>
+  `/image/Appetizers/${encodeURIComponent(name)}.png`;
+
 const sections: Section[] = [
   {
     id: "appetizers",
     label: "Appetizers",
     jp: "おつまみ",
     schedule: "Available from 17:00",
-    image:
-      "/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo005.png/screen.png",
+    image: appetizerImage("Salted Kelp Cabbage"),
     categories: [
       {
          name: "Appetizers",
@@ -37,24 +39,28 @@ const sections: Section[] = [
             jp: "塩昆布キャベツ",
             desc: "Seasonal cabbage tossed with salted kelp",
             price: "₱180",
+            image: appetizerImage("Salted Kelp Cabbage"),
           },
           {
             name: "Shiokara",
             jp: "塩辛",
             desc: "Salted fermented seafood",
             price: "₱150",
+            image: appetizerImage("Shiokara"),
           },
           {
             name: "Pickled Okra",
             jp: "オクラのお漬物",
             desc: "Crisp okra pickles",
             price: "₱220",
+            image: appetizerImage("Pickled Okra"),
           },
           {
             name: "Edamame",
             jp: "枝豆",
             desc: "Salted steamed soybeans",
             price: "₱180",
+            image: appetizerImage("Edamame"),
           },
         
           {
@@ -62,36 +68,42 @@ const sections: Section[] = [
             jp: "ひじき煮",
             desc: "Simmered hijiki seaweed",
             price: "₱180",
+            image: appetizerImage("Hijiki Ni"),
           },
           {
             name: "Cold Tofu with Natto and Okra",
             jp: "納豆オクラ 冷ややっこ",
             desc: "Silken tofu topped with natto and okra",
             price: "₱250",
+            image: appetizerImage("Cold Tofu with Natto and Okra"),
           },
           {
             name: "Grilled Bacon Wrapped Quail Eggs (2 sticks)",
             jp: "うずらベーコン焼き2本",
             desc: "Bacon-wrapped quail eggs grilled to perfection",
             price: "₱250",
+            image: appetizerImage("Grilled Bacon Wrapped Quail Eggs (2 sticks)"),
           },
           {
             name: "Tako Wasabi",
             jp: "たこわさび",
             desc: "Octopus in wasabi dressing",
             price: "₱220",
+            image: appetizerImage("Tako Wasabi"),
           },
           {
             name: "Cold Tofu with Kimchi",
             jp: "冷ややっこ キムチ",
             desc: "Silken tofu topped with kimchi",
             price: "₱230",
+            image: appetizerImage("Cold Tofu with Kimchi"),
           },
           {
             name: "Western Style Hiyayakko",
             jp: "洋風冷ややっこ",
             desc: "Chilled tofu with western-style toppings",
             price: "₱230",
+            image: appetizerImage("Western Style Hiyayakko"),
           },
          
           {
@@ -99,30 +111,35 @@ const sections: Section[] = [
             jp: "白菜のお漬物",
             desc: "Crisp pickled napa cabbage",
             price: "₱180",
+            image: appetizerImage("Hakusai no Tsukemono"),
           },
           {
             name: "Yakitori Kawa 2 Sticks",
             jp: "焼き鳥 皮 2本",
             desc: "Grilled chicken skin skewers",
             price: "₱220",
+            image: appetizerImage("Yakitori Kawa 2 Sticks"),
           },
           {
             name: "Butter Corn",
             jp: "バターコーン",
             desc: "Sweet corn sautéed in butter",
             price: "₱300",
+            image: appetizerImage("Butter Corn"),
           },
           {
             name: "Shiokara Jaga Butter",
             jp: "塩辛じゃがバター",
             desc: "Potatoes with butter and shiokara",
             price: "₱380",
+            image: appetizerImage("Shiokara Jaga Butter"),
           },
           {
             name: "Pickled Cucumber",
             jp: "きゅうりのお漬物",
             desc: "Crisp pickled cucumber",
             price: "₱180",
+            image: appetizerImage("Pickled Cucumber"),
           },
         ],
       },
@@ -1742,33 +1759,24 @@ export function MenuPage() {
         {/* ── Hero ── */}
         <section className="relative h-[40vh] min-h-[280px] overflow-hidden flex items-end">
           <Image
-            src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo004.png/screen.png"
+            src="/image/Appetizers/IMG_4106.JPG"
             alt="Hidamari menu"
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-ink-black/30 to-ink-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-black/55 via-ink-black/30 to-ink-black/15" />
           <div className="relative z-10 w-full pb-12 text-center">
-            <div className="mx-auto mb-4 inline-flex rounded-full bg-paper-white/85 px-4 py-2 shadow-sm shadow-black/10 backdrop-blur-sm">
-              <Image
-                src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_toplogo.png/screen.png"
-                alt="Hidamari logo"
-                width={140}
-                height={80}
-                className="object-contain"
-              />
-            </div>
-            <span className="font-label-md text-label-md text-paper-white/70 uppercase tracking-[0.3em] block mb-2">
-              ひだまりレストラン
-            </span>
             <h1
-              className="font-headline-xl text-primary"
-              style={{ fontSize: "64px", lineHeight: 1 }}
+              className="font-headline-xl text-paper-white"
+              style={{ fontSize: "64px", lineHeight: 1, textShadow: "0 3px 18px rgba(0,0,0,0.45)" }}
             >
               MENU
             </h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant mt-2">
+            <p
+              className="font-body-lg text-body-lg text-paper-white/90 mt-2"
+              style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
+            >
               Lunch · Dinner · Drinks · Bento
             </p>
           </div>
@@ -1918,8 +1926,8 @@ export function MenuPage() {
                                 {item.name}
                               </h3>
                               <span
-                                className="text-primary/30 italic shrink-0"
-                                style={{ fontFamily: "serif", fontSize: "13px" }}
+                                className="text-primary/60 italic shrink-0"
+                                style={{ fontFamily: "serif", fontSize: "14px" }}
                               >
                                 {item.jp}
                               </span>
@@ -1931,10 +1939,11 @@ export function MenuPage() {
                           <div className="flex items-center justify-end gap-3">
                             {item.image && (
                               <div className="overflow-hidden rounded-2xl bg-transparent">
-                                <img
+                                <Image
                                   src={item.image}
                                   alt={item.name}
-                                  loading="lazy"
+                                  width={80}
+                                  height={80}
                                   className="block w-20 h-20 object-contain"
                                 />
                               </div>

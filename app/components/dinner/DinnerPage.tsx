@@ -6,23 +6,6 @@ import Link from "next/link";
 import { SiteHeader } from "@/app/components/shared/SiteHeader";
 import { SiteFooter } from "@/app/components/shared/SiteFooter";
 
-const assetBase = "/stitch_hidamari_inspired_portfolio";
-
-const images = {
-  dinner:
-    `${assetBase}/image_from_https_hidamari_restaurant.com_images_dinner_btn.png/screen.png`,
-  drink:
-    `${assetBase}/image_from_https_hidamari_restaurant.com_images_drink_btn.png/screen.png`,
-  interior:
-    `${assetBase}/image_from_https_hidamari_restaurant.com_images_photo003.png/screen.png`,
-  table:
-    `${assetBase}/image_from_https_hidamari_restaurant.com_images_photo004.png/screen.png`,
-  logo:
-    `${assetBase}/image_from_https_hidamari_restaurant.com_images_toplogo.png/screen.png`,
-};
-
-const drinkTags = ["Sapporo", "Kirin", "Draft"];
-
 export function DinnerPage() {
   const archLeftRef = useRef<HTMLDivElement>(null);
   const archRightRef = useRef<HTMLDivElement>(null);
@@ -407,6 +390,7 @@ export function DinnerPage() {
 
           </div>
         </section>
+
       </main>
       <SiteFooter />
     </>
