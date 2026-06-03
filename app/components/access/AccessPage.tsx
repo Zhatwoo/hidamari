@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { SiteFooter } from "@/app/components/shared/SiteFooter";
 import { SiteHeader } from "@/app/components/shared/SiteHeader";
 
@@ -158,37 +157,34 @@ export function AccessPage() {
           </ul>
         </div>
 
-        {/* ── Bento Orders ── */}
+        {/* Lunch hours */}
         <div className="max-w-6xl mx-auto px-6">
           <div className="bg-surface-container-low rounded-2xl p-8 sunlit-shadow">
             <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-2">
-              Bento Orders
+              Lunch Hours
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed">
-              Pre-order bento boxes for pickup during lunch service. Place your
-              order by phone within the ordering window below.
+              Lunch service is currently available on weekends and public holidays.
+              Please check the schedule before visiting.
             </p>
-            <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div className="bg-paper-white rounded-xl p-5 sunlit-shadow">
                 <span className="font-label-md text-label-md text-tertiary uppercase tracking-wider block mb-1">
-                  Order Time
+                  Lunch Service
                 </span>
                 <p className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
-                  10:00 – 13:30
+                  11:30 - 14:00
                 </p>
               </div>
               <div className="bg-paper-white rounded-xl p-5 sunlit-shadow">
                 <span className="font-label-md text-label-md text-tertiary uppercase tracking-wider block mb-1">
-                  Pick-up Time
+                  Available Days
                 </span>
                 <p className="font-headline-lg-mobile text-headline-lg-mobile text-primary">
-                  11:30 – 14:00
+                  Weekends & Holidays
                 </p>
               </div>
             </div>
-            <button className="bg-primary text-paper-white px-8 py-3 rounded-xl font-label-md text-label-md hover:opacity-90 transition-all active:scale-95">
-              Order Now
-            </button>
           </div>
         </div>
 

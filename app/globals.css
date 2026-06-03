@@ -38,6 +38,18 @@ body {
   line-height: 1;
 }
 
+.fi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.fi::before {
+  display: block;
+  line-height: 1;
+}
+
 .sunlit-shadow {
   box-shadow: 0 4px 20px rgb(166 124 65 / 8%);
 }

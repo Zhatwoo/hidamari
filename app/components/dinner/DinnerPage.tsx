@@ -76,7 +76,7 @@ export function DinnerPage() {
       >
         <div className="flex flex-col items-center mb-4">
           <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-paper-white mb-1">
-            <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>restaurant</span>
+            <i className="fi fi-sr-utensils text-[18px]" aria-hidden="true" />
           </div>
           <p className="font-label-md text-primary uppercase tracking-widest" style={{ fontSize: "9px" }}>
             Reservations
@@ -86,15 +86,15 @@ export function DinnerPage() {
           href="/access"
           className="flex flex-col items-center gap-1 p-3 bg-secondary-container/30 text-secondary rounded-lg hover:-translate-x-1 transition-transform"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>calendar_today</span>
+          <i className="fi fi-tr-calendar-day text-[22px]" aria-hidden="true" />
           <span className="font-label-md" style={{ fontSize: "9px" }}>Book a Table</span>
         </Link>
         <Link
           href="/access"
           className="flex flex-col items-center gap-1 p-3 text-on-surface-variant hover:bg-primary/5 hover:-translate-x-1 transition-transform rounded-lg"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>restaurant</span>
-          <span className="font-label-md" style={{ fontSize: "9px" }}>Bento Orders</span>
+          <i className="fi fi-sr-clock text-[21px]" aria-hidden="true" />
+          <span className="font-label-md" style={{ fontSize: "9px" }}>Lunch Hours</span>
         </Link>
       </aside>
 
@@ -119,7 +119,7 @@ export function DinnerPage() {
                 Indulge in our artisanal Japanese dishes under the soft glow of dusk.
               </p>
               <div className="flex items-center gap-2 text-primary justify-center md:justify-start">
-                <span className="material-symbols-outlined">schedule</span>
+                <i className="fi fi-rr-clock-three text-[20px]" aria-hidden="true" />
                 <span className="font-body-md text-body-md">17:00 – 24:00 Daily</span>
               </div>
             </div>
@@ -137,7 +137,7 @@ export function DinnerPage() {
                   style={{ borderRadius: "200px 200px 12px 12px", height: "320px" }}
                 >
                   <Image
-                    src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_dinner_btn.png/screen.png"
+                    src="/dinner/IMG_4055.JPG"
                     alt="Dinner"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -147,9 +147,7 @@ export function DinnerPage() {
                     <span className="font-headline-lg text-headline-lg text-paper-white tracking-widest">
                       DINNER
                     </span>
-                    <span className="font-label-md text-label-md text-warm-accent tracking-widest mt-1">
-                      VIEW MENU
-                    </span>
+                    
                   </div>
                 </div>
               </div>
@@ -164,7 +162,7 @@ export function DinnerPage() {
                   style={{ borderRadius: "200px 200px 12px 12px", height: "384px" }}
                 >
                   <Image
-                    src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_drink_btn.png/screen.png"
+                    src="/dinner/IMG_3036.JPG"
                     alt="Drinks"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -173,9 +171,7 @@ export function DinnerPage() {
                     <span className="font-headline-lg text-headline-lg text-paper-white tracking-widest">
                       DRINK
                     </span>
-                    <span className="font-label-md text-label-md text-warm-accent tracking-widest mt-1">
-                      VIEW MENU
-                    </span>
+                    
                   </div>
                 </div>
               </div>
@@ -216,7 +212,7 @@ export function DinnerPage() {
               >
                 <div className="relative w-full md:w-1/2 h-48 md:h-full overflow-hidden">
                   <Image
-                    src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_drink_btn.png/screen.png"
+                    src="/dinner/IMG_3036.JPG"
                     alt="Draft Beer"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -246,15 +242,10 @@ export function DinnerPage() {
 
               {/* Sake & Shochu – col-span-4, dark card */}
               <div
-                className="md:col-span-4 rounded-xl overflow-hidden sunlit-shadow bg-primary text-paper-white p-8 flex flex-col justify-end group transition-all duration-300 hover:bg-primary-container cursor-pointer"
+                className="md:col-span-4 rounded-xl overflow-hidden sunlit-shadow bg-primary-container text-paper-white p-8 flex flex-col justify-end group transition-all duration-300 hover:bg-primary cursor-pointer"
                 data-reveal
               >
-                <span
-                  className="material-symbols-outlined text-4xl mb-6 opacity-80"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  liquor
-                </span>
+                <i className="fi fi-rs-martini-glass-citrus text-4xl mb-6 opacity-90" aria-hidden="true" />
                 <h3 className="font-headline-lg text-headline-lg mb-2">
                   Sake &amp; Shochu
                 </h3>
@@ -282,25 +273,23 @@ export function DinnerPage() {
                   <span className="font-body-md text-primary font-bold">
                     Explore Premium Labels
                   </span>
-                  <span className="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform">
-                    arrow_forward
-                  </span>
+                  <i className="fi fi-rr-arrow-small-right text-primary text-[24px] group-hover:translate-x-2 transition-transform" aria-hidden="true" />
                 </div>
               </div>
 
-              {/* A Space for 65 Guests – col-span-8, photo card */}
+              {/* A Space for 65 Guests - col-span-8, photo card */}
               <div
-                className="md:col-span-8 relative rounded-xl overflow-hidden sunlit-shadow group cursor-pointer transition-all duration-300"
+                className="md:col-span-8 relative h-[280px] rounded-xl overflow-hidden sunlit-shadow group cursor-pointer transition-all duration-300"
                 data-reveal
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-black/80 to-transparent z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-ink-black/75 via-ink-black/35 to-ink-black/10 z-10" />
                 <Image
-                  src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo003.png/screen.png"
+                  src="/dinner/IMG_2977.JPG"
                   alt="Restaurant Interior"
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-1000"
+                  className="object-cover object-[center_38%] group-hover:scale-[1.02] transition-transform duration-1000"
                 />
-                <div className="absolute bottom-0 left-0 p-8 z-20 text-paper-white">
+                <div className="absolute bottom-0 left-0 p-8 md:p-10 z-20 text-paper-white">
                   <h3 className="font-headline-lg text-headline-lg mb-2">
                     A Space for 65 Guests
                   </h3>
@@ -329,12 +318,7 @@ export function DinnerPage() {
               <div className="space-y-8">
 
                 <div className="flex gap-4">
-                  <span
-                    className="material-symbols-outlined text-primary mt-0.5 shrink-0"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    location_on
-                  </span>
+                  <i className="fi fi-sr-marker text-primary mt-1 shrink-0 text-[22px]" aria-hidden="true" />
                   <div>
                     <h4 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">
                       Location
@@ -350,12 +334,7 @@ export function DinnerPage() {
                 </div>
 
                 <div className="flex gap-4">
-                  <span
-                    className="material-symbols-outlined text-primary shrink-0"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    call
-                  </span>
+                  <i className="fi fi-sr-phone-call text-primary shrink-0 text-[22px]" aria-hidden="true" />
                   <div>
                     <h4 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">
                       Phone
@@ -367,19 +346,18 @@ export function DinnerPage() {
                 </div>
 
                 <div className="flex gap-4">
-                  <span
-                    className="material-symbols-outlined text-primary shrink-0"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    credit_card
-                  </span>
+                  <i className="fi fi-sr-credit-card text-primary shrink-0 text-[22px]" aria-hidden="true" />
                   <div>
                     <h4 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">
                       Payments
                     </h4>
-                    <p className="font-body-md text-body-md text-on-surface-variant">
-                      VISA, MASTER, AMEX, JCB
-                    </p>
+                    <Image
+                      src="/dinner/Visa-Mastercard-Amex-JCB.png"
+                      alt="Accepted payments: Visa, Mastercard, American Express, JCB"
+                      width={260}
+                      height={42}
+                      className="h-auto w-full max-w-[260px]"
+                    />
                   </div>
                 </div>
 
@@ -396,12 +374,7 @@ export function DinnerPage() {
                   className="object-cover grayscale opacity-30"
                 />
                 <div className="relative z-10 text-center p-8 bg-paper-white/90 backdrop-blur-sm rounded-xl sunlit-shadow max-w-xs">
-                  <span
-                    className="material-symbols-outlined text-primary block mb-2"
-                    style={{ fontSize: "40px" }}
-                  >
-                    restaurant
-                  </span>
+                  <i className="fi fi-sr-utensils text-primary mb-3 block text-[40px]" aria-hidden="true" />
                   <h5 className="font-body-md font-bold text-primary mb-1">
                     Hidamari Japanese Restaurant
                   </h5>

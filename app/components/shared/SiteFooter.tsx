@@ -45,7 +45,7 @@ export function SiteFooter() {
             </h5>
             {[
               { label: "Access", href: "/access" },
-              { label: "Bento Orders", href: "/access" },
+              { label: "Lunch Hours", href: "/lunch" },
               { label: "Membership Bar", href: "/access" },
             ].map(({ label, href }) => (
               <Link

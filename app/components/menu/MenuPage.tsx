@@ -353,38 +353,38 @@ const sections: Section[] = [
     ],
   },
   {
-    id: "bento",
-    label: "Bento",
+    id: "lunch-archive",
+    label: "Lunch Archive",
     jp: "お弁当",
     schedule: "Order: 10:00–13:30 · Pick-up: 11:30–14:00",
     image:
       "/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo005.png/screen.png",
     categories: [
       {
-        name: "Bento Boxes",
+        name: "Lunch Sets",
         jp: "お弁当",
-        note: "All bento boxes include premium Koshihikari rice, seasonal pickles, and a small miso soup",
+        note: "Archived lunch set copy kept out of the public menu",
         items: [
           {
-            name: "Standard Bento",
+            name: "Standard Lunch Set",
             jp: "スタンダード弁当",
             desc: "Chicken teriyaki or grilled salmon · tamagoyaki · simmered seasonal vegetable",
             price: "₱480",
           },
           {
-            name: "Premium Bento",
+            name: "Premium Lunch Set",
             jp: "プレミアム弁当",
             desc: "Wagyu beef slice · sashimi (2 kinds) · chawanmushi · seasonal assorted sides",
             price: "₱680",
           },
           {
-            name: "Vegetable Bento",
+            name: "Vegetable Lunch Set",
             jp: "野菜弁当",
             desc: "Agedashi tofu · simmered pumpkin · inari sushi · pickled vegetables",
             price: "₱420",
           },
           {
-            name: "Kids Bento",
+            name: "Kids Lunch Set",
             jp: "お子様弁当",
             desc: "Mini omurice · karaage (2 pcs) · tamagoyaki · seasonal fruit",
             price: "₱320",
@@ -396,6 +396,8 @@ const sections: Section[] = [
 ];
 
 /* ─── Component ─────────────────────────────────────────────── */
+
+const visibleSections = sections.filter((section) => section.id !== "lunch-archive");
 
 export function MenuPage() {
   const [activeTab, setActiveTab] = useState("lunch");
@@ -415,7 +417,7 @@ export function MenuPage() {
       { rootMargin: "-30% 0px -60% 0px" }
     );
 
-    sections.forEach(({ id }) => {
+    visibleSections.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) io.observe(el);
     });
@@ -473,7 +475,7 @@ export function MenuPage() {
               MENU
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant mt-2">
-              Lunch · Dinner · Drinks · Bento
+              Lunch · Dinner · Drinks
             </p>
           </div>
         </section>
@@ -485,7 +487,7 @@ export function MenuPage() {
           style={{ top: "80px" }}
         >
           <div className="max-w-5xl mx-auto px-6 flex items-center gap-1 overflow-x-auto">
-            {sections.map(({ id, label, jp }) => (
+            {visibleSections.map(({ id, label, jp }) => (
               <button
                 key={id}
                 onClick={() => scrollToSection(id)}
@@ -509,7 +511,7 @@ export function MenuPage() {
 
         {/* ── Menu Sections ── */}
         <div className="max-w-5xl mx-auto px-6 md:px-margin-desktop">
-          {sections.map((section, sIdx) => (
+          {visibleSections.map((section) => (
             <section
               key={section.id}
               id={section.id}
@@ -548,21 +550,6 @@ export function MenuPage() {
                 </div>
               </div>
 
-              {/* Special bento order note */}
-              {section.id === "bento" && (
-                <div className="mb-10 bg-secondary-container/30 rounded-xl p-5 flex items-start gap-3 reveal-on-scroll">
-                  <span className="material-symbols-outlined text-secondary mt-0.5">info</span>
-                  <div>
-                    <p className="font-label-md text-label-md text-secondary mb-1">How to Order Bento</p>
-                    <p className="font-body-md text-body-md text-on-surface-variant">
-                      Please place your order by phone at{" "}
-                      <strong className="text-primary">02-8659-6120</strong> during ordering hours.
-                      Pick-up is available at the restaurant entrance.
-                    </p>
-                  </div>
-                </div>
-              )}
-
               {/* Weekday lunch note */}
               {section.id === "lunch" && (
                 <div className="mb-10 bg-warm-accent/8 border border-warm-accent/20 rounded-xl p-5 flex items-start gap-3 reveal-on-scroll">
@@ -576,7 +563,7 @@ export function MenuPage() {
               )}
 
               {/* Categories */}
-              {section.categories.map((cat, cIdx) => (
+              {section.categories.map((cat) => (
                 <div key={cat.name} className={`mb-12 reveal-on-scroll`}>
                   {/* Category label */}
                   <div className="flex items-center gap-4 mb-6">

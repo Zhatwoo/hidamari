@@ -51,7 +51,7 @@ export function HomePage() {
           <div className="w-10 h-10 rounded-full bg-surface-variant/50 flex items-center justify-center text-on-surface-variant hover:bg-primary/5 cursor-pointer transition-colors">
             <span className="material-symbols-outlined">restaurant</span>
           </div>
-          <span className="font-label-md text-on-surface-variant uppercase tracking-widest" style={{ fontSize: "10px" }}>Bento</span>
+          <span className="font-label-md text-on-surface-variant uppercase tracking-widest" style={{ fontSize: "10px" }}>Lunch</span>
         </div>
       </div>
 
@@ -187,8 +187,8 @@ export function HomePage() {
                   just a 3-minute walk from Little Tokyo. I chose the name
                   Hidamari with great care, as I wanted it to be a comforting
                   space where people can relax amidst their busy lives, and to
-                  create a warm atmosphere reminiscent of returning to one's
-                  parents' home.
+                  create a warm atmosphere reminiscent of returning to one&apos;s
+                  parents&apos; home.
                 </p>
                 <div className="pt-4 flex gap-8">
                   {[
@@ -230,13 +230,13 @@ export function HomePage() {
               <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl sunlit-shadow bg-ink-black reveal-on-scroll">
                 <Image
                   src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo005.png/screen.png"
-                  alt="Artisanal bento"
+                  alt="Weekend lunch plate"
                   fill
                   className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-black/90 to-transparent p-8 flex flex-col justify-end">
                   <span className="text-secondary-fixed-dim font-label-md text-label-md uppercase tracking-widest mb-2">
-                    Artisanal Bento
+                    Weekend Lunch
                   </span>
                   <h3 className="text-paper-white font-headline-lg text-headline-lg">
                     Weekend Lunch Service
