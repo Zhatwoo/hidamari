@@ -1789,13 +1789,13 @@ export function MenuPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-ink-black/55 via-ink-black/30 to-ink-black/15" />
           <div className="relative z-10 w-full pb-12 text-center">
             <h1
-              className="font-headline-xl text-paper-white"
-              style={{ fontSize: "64px", lineHeight: 1, textShadow: "0 3px 18px rgba(0,0,0,0.45)" }}
+              className="font-headline-xl text-paper-white text-4xl sm:text-5xl md:text-[64px] leading-tight"
+              style={{ lineHeight: 1, textShadow: "0 3px 18px rgba(0,0,0,0.45)" }}
             >
               {t("menu.heroTitle")}
             </h1>
             <p
-              className="font-body-lg text-body-lg text-paper-white/90 mt-2"
+              className="font-body-lg text-body-lg text-paper-white/90 mt-2 text-sm sm:text-base"
               style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
             >
               Lunch · Dinner · Drinks · Bento
@@ -1806,23 +1806,22 @@ export function MenuPage() {
         {/* ── Sticky Tab Navigation ── */}
         <div
           ref={tabBarRef}
-          className="sticky z-40 bg-paper-white/90 backdrop-blur-md border-b border-primary/10 shadow-sm"
-          style={{ top: "80px" }}
+          className="fixed md:sticky left-0 right-0 z-40 bg-paper-white/90 backdrop-blur-md border-b border-primary/10 shadow-sm top-16 md:top-[80px]"
         >
-          <div className="max-w-5xl mx-auto px-6 flex items-center justify-center gap-1 overflow-x-auto">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-1 overflow-x-auto">
             {sections.map(({ id, label, jp }) => (
               <button
                 key={id}
                 onClick={() => scrollToSection(id)}
-                className={`flex-shrink-0 flex flex-col items-center gap-0.5 px-6 py-4 border-b-2 transition-all font-label-md text-label-md ${
+                className={`flex-shrink-0 flex flex-col items-center gap-0.5 px-3 sm:px-4 py-3 border-b-2 transition-all text-sm font-label-md ${
                   activeTab === id
                     ? "border-primary text-primary"
                     : "border-transparent text-on-surface-variant hover:text-primary hover:border-primary/30"
                 }`}
               >
-                <span>{locale === "ja" ? jp : label}</span>
+                <span className="text-sm sm:text-base">{locale === "ja" ? jp : label}</span>
                 <span
-                  className="font-caption opacity-60"
+                  className="font-caption opacity-60 hidden sm:block"
                   style={{ fontSize: "10px", fontFamily: "serif" }}
                 >
                   {locale === "ja" ? label : jp}
@@ -1831,6 +1830,9 @@ export function MenuPage() {
             ))}
           </div>
         </div>
+
+        {/* mobile spacer to avoid fixed tab overlap on small screens */}
+        <div className="md:hidden h-16" />
 
         {/* ── Menu Sections ── */}
         <div className="max-w-5xl mx-auto px-6 md:px-margin-desktop">
@@ -1845,14 +1847,13 @@ export function MenuPage() {
               <div className="flex flex-col md:flex-row md:items-end gap-6 mb-12 reveal-on-scroll">
                 <div className="flex-1">
                   <span
-                    className="text-primary opacity-20 select-none"
-                    style={{ fontFamily: "serif", fontSize: "52px", lineHeight: 1, display: "block" }}
+                    className="text-primary opacity-20 select-none text-[32px] sm:text-[40px] md:text-[52px] leading-none block"
+                    style={{ fontFamily: "serif" }}
                   >
                     {section.jp}
                   </span>
                   <h2
-                    className="font-headline-xl text-primary -mt-3"
-                    style={{ fontSize: "44px", lineHeight: "52px" }}
+                    className="font-headline-xl text-primary -mt-3 text-3xl sm:text-[38px] md:text-[44px] leading-tight"
                   >
                     {locale === "ja" ? section.jp : section.label}
                   </h2>
@@ -1936,7 +1937,7 @@ export function MenuPage() {
                       {cat.items.map((item, idx) => (
                         <div
                           key={`${section.id}-${cat.name}-${item.name}-${idx}`}
-                          className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-6 gap-y-4 py-5 group items-start"
+                          className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_auto] gap-x-6 gap-y-4 py-5 group items-start"
                         >
                           <div className="min-w-0 space-y-3">
                             <div className="flex items-baseline gap-2 flex-wrap">
@@ -2010,30 +2011,7 @@ export function MenuPage() {
           </div>
         </section>
 
-        {/* ── Accepted Payment ── */}
-        <section className="py-10 px-6 md:px-margin-desktop">
-          <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 border border-primary/10 rounded-xl px-8 py-5">
-            <div className="flex items-center gap-3">
-              <span className="material-symbols-outlined text-primary">credit_card</span>
-              <span className="font-label-md text-label-md text-on-surface-variant">
-                {t("menu.cardsAccepted")}
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              {["VISA", "MASTER", "AMEX", "JCB"].map((card) => (
-                <span
-                  key={card}
-                  className="font-label-md text-label-md text-primary border border-primary/20 rounded-lg px-3 py-1"
-                >
-                  {card}
-                </span>
-              ))}
-            </div>
-            <p className="font-body-md text-body-md text-on-surface-variant text-center md:text-right">
-              {t("menu.reservationsPhone")}
-            </p>
-          </div>
-        </section>
+        
 
       </main>
       <SiteFooter />
