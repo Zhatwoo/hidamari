@@ -25,10 +25,10 @@ export function LegalDocument({ doc }: { doc: LegalDoc }) {
             {careers.call}
           </a>
           <Link
-            href="/access#membership-bar"
+            href="/access#private-dining"
             className="inline-flex border border-primary/25 text-primary px-8 py-3 rounded-xl font-label-md text-label-md hover:bg-surface-container-low transition-all"
           >
-            {careers.membershipInfo}
+            {careers.privateEventsInfo}
           </Link>
         </div>
       </LegalPageLayout>

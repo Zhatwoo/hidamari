@@ -20,7 +20,7 @@ export function SiteFooter() {
   const shopInfoLinks = [
     { label: t("common.nav.access"), href: "/access" },
     { label: t("common.footer.bentoOrders"), href: "/access#bento" },
-    { label: t("common.footer.membershipBar"), href: "/access#membership-bar" },
+    { label: t("common.footer.privateEvents"), href: "/access#private-dining" },
   ] as const;
 
   const legalLinks = [
