@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { HeroMontageVideo } from "@/app/components/home/HeroMontageVideo";
+import { useLanguage } from "@/app/components/shared/LanguageProvider";
 import { NoticeImportantIcon } from "@/app/components/shared/icons/NoticeImportantIcon";
 
 function ArrowForwardIcon({ className = "w-4 h-4" }: { className?: string }) {
@@ -11,33 +14,43 @@ function ArrowForwardIcon({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export function HeroSection() {
+  const { locale, t } = useLanguage();
+
   return (
     <section className="relative z-0 h-[calc(100dvh-5rem)] min-h-[480px] overflow-hidden bg-primary">
-      {/* Full-screen montage video */}
       <HeroMontageVideo className="absolute inset-0 h-full w-full object-cover" />
 
       <div className="absolute inset-0 bg-black/65" aria-hidden />
 
       <div className="relative z-10 flex h-full flex-col justify-center items-center px-6 py-8 text-center">
         <div className="max-w-2xl space-y-6 md:space-y-8">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-paper-white/15 border border-paper-white/25 font-label-md text-[11px] text-paper-white uppercase tracking-widest backdrop-blur-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary-fixed shrink-0" />
-          Japanese Artisanal Dining
+          <span className="inline-flex h-8 items-center rounded-full border border-paper-white/25 bg-paper-white/15 px-5 font-label-md text-[11px] leading-none tracking-widest text-paper-white uppercase backdrop-blur-sm">
+            <span className="leading-none pl-[0.1em]">{t("hero.badge")}</span>
           </span>
 
           <h1
             className="font-headline-xl text-paper-white leading-tight"
             style={{ fontSize: "clamp(32px,5vw,56px)", lineHeight: "1.15" }}
           >
-            A <span className="italic text-primary-fixed">Sunlit Spot</span> to{" "}
-            <br />
-            Rediscover Tranquility
+            {locale === "ja" ? (
+              <>
+                {t("hero.title")}
+                <span className="italic text-primary-fixed">{t("hero.titleItalic")}</span>
+                <br />
+                {t("hero.titleLine2")}
+              </>
+            ) : (
+              <>
+                {t("hero.title")}{" "}
+                <span className="italic text-primary-fixed">{t("hero.titleItalic")}</span> to{" "}
+                <br />
+                {t("hero.titleLine2")}
+              </>
+            )}
           </h1>
 
           <p className="font-body-lg text-paper-white/90 text-lg md:text-xl max-w-lg mx-auto leading-relaxed">
-            &quot;Hidamari&quot; is a comforting space in the heart of Makati where
-            people can relax amidst their busy lives, inspired by the warmth of
-            a childhood home.
+            {t("hero.body")}
           </p>
 
           <div className="flex justify-center">
@@ -45,7 +58,7 @@ export function HeroSection() {
               href="/menu"
               className="inline-flex items-center gap-2 bg-primary text-paper-white px-8 py-4 rounded-xl font-label-md text-label-md shadow-lg hover:opacity-90 active:scale-95 transition-all"
             >
-              Explore Menu
+              {t("hero.exploreMenu")}
               <ArrowForwardIcon />
             </Link>
           </div>
@@ -56,6 +69,8 @@ export function HeroSection() {
 }
 
 export function HeroServiceNotice() {
+  const { t } = useLanguage();
+
   return (
     <div className="relative z-20 max-w-5xl mx-auto w-full px-6 -translate-y-1/2 -mb-20 md:-mb-24">
       <div className="bg-primary-container rounded-2xl sunlit-shadow overflow-hidden border-l-[6px] border-warm-accent">
@@ -67,26 +82,21 @@ export function HeroServiceNotice() {
           </div>
           <div className="min-w-0 flex-1 text-center md:text-left">
             <p className="font-label-md text-[11px] text-secondary-fixed-dim uppercase tracking-widest mb-1">
-              Service Notice ·{" "}
+              {t("hero.noticeLabel")}{" "}
               <span className="text-on-primary-container font-semibold normal-case tracking-normal text-sm">
-                Important Update
+                {t("hero.noticeTitle")}
               </span>
             </p>
             <p className="font-body-md text-on-primary-container/90 leading-relaxed">
-              Starting May 16, we will temporarily{" "}
-              <strong className="underline decoration-warm-accent decoration-2 underline-offset-2">
-                suspend weekday lunch service
-              </strong>
-              . We remain open continuously on weekends and public holidays from
-              11:30 AM to 12:00 AM.
+              {t("hero.noticeBody")}
             </p>
           </div>
-          <button
-            type="button"
-            className="shrink-0 w-full md:w-auto px-6 py-2.5 rounded-lg border border-on-primary-container/40 text-on-primary-container font-label-md hover:bg-paper-white/10 transition-colors"
+          <Link
+            href="/lunch"
+            className="shrink-0 w-full md:w-auto px-6 py-2.5 rounded-lg border border-on-primary-container/40 text-on-primary-container font-label-md hover:bg-paper-white/10 transition-colors text-center"
           >
-            Learn More
-          </button>
+            {t("hero.learnMore")}
+          </Link>
         </div>
       </div>
     </div>

@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/app/components/shared/SiteHeader";
 import { SiteFooter } from "@/app/components/shared/SiteFooter";
+import { useLanguage } from "@/app/components/shared/LanguageProvider";
+import { HIDAMARI_GOOGLE_MAPS_URL, HIDAMARI_PHONE_DISPLAY } from "@/app/lib/site-links";
 
 const assetBase = "/stitch_hidamari_inspired_portfolio";
 
@@ -21,9 +23,9 @@ const images = {
     `${assetBase}/image_from_https_hidamari_restaurant.com_images_toplogo.png/screen.png`,
 };
 
-const drinkTags = ["Sapporo", "Kirin", "Draft"];
 
 export function DinnerPage() {
+  const { t, messages } = useLanguage();
   const archLeftRef = useRef<HTMLDivElement>(null);
   const archRightRef = useRef<HTMLDivElement>(null);
   const drinkBgRef = useRef<HTMLElement>(null);
@@ -87,34 +89,6 @@ export function DinnerPage() {
     <>
       <SiteHeader active="dinner" />
 
-      {/* ── Fixed right sidebar ── */}
-      <aside className="hidden lg:flex fixed right-0 top-1/2 -translate-y-1/2 flex-col gap-4 p-4 z-40 bg-surface-container-low rounded-l-xl"
-        style={{ boxShadow: "4px 20px 20px rgba(166,124,65,0.08)" }}
-      >
-        <div className="flex flex-col items-center mb-4">
-          <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-paper-white mb-1">
-            <i className="fi fi-sr-utensils text-[18px]" aria-hidden="true" />
-          </div>
-          <p className="font-label-md text-primary uppercase tracking-widest" style={{ fontSize: "9px" }}>
-            Reservations
-          </p>
-        </div>
-        <Link
-          href="/access"
-          className="flex flex-col items-center gap-1 p-3 bg-secondary-container/30 text-secondary rounded-lg hover:-translate-x-1 transition-transform"
-        >
-          <i className="fi fi-tr-calendar-day text-[22px]" aria-hidden="true" />
-          <span className="font-label-md" style={{ fontSize: "9px" }}>Book a Table</span>
-        </Link>
-        <Link
-          href="/access"
-          className="flex flex-col items-center gap-1 p-3 text-on-surface-variant hover:bg-primary/5 hover:-translate-x-1 transition-transform rounded-lg"
-        >
-          <i className="fi fi-sr-clock text-[21px]" aria-hidden="true" />
-          <span className="font-label-md" style={{ fontSize: "9px" }}>Lunch Hours</span>
-        </Link>
-      </aside>
-
       <main className="pt-20 bg-surface overflow-x-hidden">
 
         {/* ══════════════════════════════════════════
@@ -126,18 +100,17 @@ export function DinnerPage() {
             {/* Left – text */}
             <div className="w-full md:w-1/2 text-center md:text-left z-10" data-reveal>
               <span className="inline-block px-3 py-1 mb-4 bg-tertiary/10 text-tertiary font-label-md text-caption uppercase tracking-[1px] rounded-full">
-                Evening Experience
+                {t("dinner.eveningBadge")}
               </span>
               <h1 className="font-headline-xl text-headline-xl text-primary mb-6">
-                Dinner at Hidamari
+                {t("dinner.heroTitle")}
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-lg mb-8 mx-auto md:mx-0">
-                Experience a warm, cozy evening atmosphere where time slows down.
-                Indulge in our artisanal Japanese dishes under the soft glow of dusk.
+                {t("dinner.heroBody")}
               </p>
               <div className="flex items-center gap-2 text-primary justify-center md:justify-start">
                 <i className="fi fi-rr-clock-three text-[20px]" aria-hidden="true" />
-                <span className="font-body-md text-body-md">17:00 – 24:00 Daily</span>
+                <span className="font-body-md text-body-md">{t("dinner.hoursDaily")}</span>
               </div>
             </div>
 
@@ -155,14 +128,14 @@ export function DinnerPage() {
                 >
                   <Image
                     src="/dinner/IMG_4055.JPG"
-                    alt="Dinner"
+                    alt={messages.dinner.alts.dinnerArch}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   {/* Overlay label */}
                   <div className="absolute inset-0 bg-gradient-to-t from-ink-black/60 to-ink-black/10 flex flex-col items-center justify-end pb-8">
                     <span className="font-headline-lg text-headline-lg text-paper-white tracking-widest">
-                      DINNER
+                      {t("dinner.dinner")}
                     </span>
                     
                   </div>
@@ -180,13 +153,13 @@ export function DinnerPage() {
                 >
                   <Image
                     src="/dinner/IMG_3036.JPG"
-                    alt="Drinks"
+                    alt={messages.dinner.alts.drinksArch}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink-black/60 to-ink-black/10 flex flex-col items-center justify-end pb-8">
                     <span className="font-headline-lg text-headline-lg text-paper-white tracking-widest">
-                      DRINK
+                      {t("dinner.drink")}
                     </span>
                     
                   </div>
@@ -208,11 +181,10 @@ export function DinnerPage() {
 
             <div className="text-center mb-16" data-reveal>
               <h2 className="font-headline-xl text-headline-xl text-primary mb-4">
-                Extensive Drink Selection
+                {t("dinner.drinkSelectionTitle")}
               </h2>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
-                From Japanese draft beers to curated sake, our beverage menu is designed
-                to complement your evening meal perfectly.
+                {t("dinner.drinkSelectionBody")}
               </p>
             </div>
 
@@ -230,21 +202,20 @@ export function DinnerPage() {
                 <div className="relative w-full md:w-1/2 h-48 md:h-full overflow-hidden">
                   <Image
                     src="/dinner/IMG_3036.JPG"
-                    alt="Draft Beer"
+                    alt={messages.dinner.alts.draftBeer}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
                   <h3 className="font-headline-lg text-headline-lg text-primary mb-4">
-                    Japanese Draft
+                    {t("dinner.japaneseDraft")}
                   </h3>
                   <p className="font-body-md text-body-md text-on-surface-variant mb-6">
-                    Experience the crisp taste of Sapporo Premium, Kuro, and Kirin
-                    Ichiban Shibori, poured to perfection.
+                    {t("dinner.japaneseDraftBody")}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {["Sapporo", "Kirin", "Draft"].map((tag) => (
+                    {messages.dinner.drinkTags.map((tag) => (
                       <span
                         key={tag}
                         className="px-2 py-1 bg-secondary-container/20 text-on-secondary-container rounded font-label-md uppercase"
@@ -264,11 +235,10 @@ export function DinnerPage() {
               >
                 <i className="fi fi-rs-martini-glass-citrus text-4xl mb-6 opacity-90" aria-hidden="true" />
                 <h3 className="font-headline-lg text-headline-lg mb-2">
-                  Sake &amp; Shochu
+                  {t("dinner.sakeShochu")}
                 </h3>
                 <p className="font-body-md text-body-md opacity-90">
-                  A curated collection of regional favorites from across Japan,
-                  available by the glass or bottle.
+                  {t("dinner.sakeShochuBody")}
                 </p>
               </div>
 
@@ -279,16 +249,15 @@ export function DinnerPage() {
               >
                 <div className="mb-auto">
                   <h3 className="font-headline-lg text-headline-lg text-primary mb-2">
-                    Whiskey
+                    {t("dinner.whiskey")}
                   </h3>
                   <p className="font-body-md text-body-md text-on-surface-variant">
-                    Suntory Hibiki, Yamazaki, and more. Bottle keeping services
-                    available for our regulars.
+                    {t("dinner.whiskeyBody")}
                   </p>
                 </div>
                 <div className="mt-8 flex items-center justify-between">
                   <span className="font-body-md text-primary font-bold">
-                    Explore Premium Labels
+                    {t("dinner.explorePremium")}
                   </span>
                   <i className="fi fi-rr-arrow-small-right text-primary text-[24px] group-hover:translate-x-2 transition-transform" aria-hidden="true" />
                 </div>
@@ -302,17 +271,16 @@ export function DinnerPage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-ink-black/75 via-ink-black/35 to-ink-black/10 z-10" />
                 <Image
                   src="/dinner/IMG_2977.JPG"
-                  alt="Restaurant Interior"
+                  alt={messages.dinner.alts.restaurantInterior}
                   fill
                   className="object-cover object-[center_38%] group-hover:scale-[1.02] transition-transform duration-1000"
                 />
                 <div className="absolute bottom-0 left-0 p-8 md:p-10 z-20 text-paper-white">
                   <h3 className="font-headline-lg text-headline-lg mb-2">
-                    A Space for 65 Guests
+                    {t("dinner.space65")}
                   </h3>
                   <p className="font-body-md text-body-md opacity-90 max-w-md">
-                    Private rooms for 8–18 guests and a lively bar counter for
-                    solo diners.
+                    {t("dinner.space65Body")}
                   </p>
                 </div>
               </div>
@@ -330,7 +298,7 @@ export function DinnerPage() {
             {/* Info */}
             <div className="w-full md:w-1/2" data-reveal>
               <h2 className="font-headline-xl text-headline-xl text-primary mb-8">
-                Visit Us
+                {t("dinner.visitUs")}
               </h2>
               <div className="space-y-8">
 
@@ -338,14 +306,13 @@ export function DinnerPage() {
                   <i className="fi fi-sr-marker text-primary mt-1 shrink-0 text-[22px]" aria-hidden="true" />
                   <div>
                     <h4 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">
-                      Location
+                      {t("dinner.location")}
                     </h4>
                     <p className="font-body-md text-body-md text-on-surface-variant">
-                      4th Floor, Penthouse, Creekside Building, Amorsolo corner
-                      V.A. Rufino Sts., Legaspi Village, Makati City
+                      {messages.common.addressLines.join(" ")}
                     </p>
                     <p className="font-caption text-caption text-primary mt-2 italic">
-                      3-minute walk from Little Tokyo and Cinema Square
+                      {t("dinner.walkNote")}
                     </p>
                   </div>
                 </div>
@@ -354,10 +321,10 @@ export function DinnerPage() {
                   <i className="fi fi-sr-phone-call text-primary shrink-0 text-[22px]" aria-hidden="true" />
                   <div>
                     <h4 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">
-                      Phone
+                      {t("common.phone")}
                     </h4>
                     <p className="font-headline-lg text-headline-lg text-primary">
-                      02-8659-6120
+                      {HIDAMARI_PHONE_DISPLAY}
                     </p>
                   </div>
                 </div>
@@ -366,11 +333,11 @@ export function DinnerPage() {
                   <i className="fi fi-sr-credit-card text-primary shrink-0 text-[22px]" aria-hidden="true" />
                   <div>
                     <h4 className="font-label-md text-label-md text-primary uppercase tracking-wider mb-2">
-                      Payments
+                      {t("dinner.payments")}
                     </h4>
                     <Image
                       src="/dinner/Visa-Mastercard-Amex-JCB.png"
-                      alt="Accepted payments: Visa, Mastercard, American Express, JCB"
+                      alt={messages.dinner.alts.payments}
                       width={260}
                       height={42}
                       className="h-auto w-full max-w-[260px]"
@@ -386,27 +353,33 @@ export function DinnerPage() {
               <div className="relative w-full h-full bg-surface-container flex items-center justify-center">
                 <Image
                   src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo004.png/screen.png"
-                  alt="Map area"
+                  alt={messages.dinner.alts.mapArea}
                   fill
                   className="object-cover grayscale opacity-30"
                 />
                 <div className="relative z-10 text-center p-8 bg-paper-white/90 backdrop-blur-sm rounded-xl sunlit-shadow max-w-xs">
                   <i className="fi fi-sr-utensils text-primary mb-3 block text-[40px]" aria-hidden="true" />
                   <h5 className="font-body-md font-bold text-primary mb-1">
-                    Hidamari Japanese Restaurant
+                    {t("dinner.mapRestaurant")}
                   </h5>
                   <p className="font-caption text-caption text-on-surface-variant">
-                    Creekside Building Penthouse
+                    {t("dinner.mapBuilding")}
                   </p>
-                  <button className="mt-4 font-body-md text-primary font-bold border-b border-primary pb-1 hover:opacity-70 transition-opacity">
-                    Open in Maps
-                  </button>
+                  <a
+                    href={HIDAMARI_GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-block font-body-md text-primary font-bold border-b border-primary pb-1 hover:opacity-70 transition-opacity"
+                  >
+                    {t("dinner.openMaps")}
+                  </a>
                 </div>
               </div>
             </div>
 
           </div>
         </section>
+
       </main>
       <SiteFooter />
     </>

@@ -4,101 +4,31 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { SiteHeader } from "@/app/components/shared/SiteHeader";
 import { SiteFooter } from "@/app/components/shared/SiteFooter";
+import { useLanguage } from "@/app/components/shared/LanguageProvider";
 
-const lunchHighlights = [
-  {
-    src: "/lunch/IMG_3891.JPG",
-    label: "Signature Dish",
-    title: "Classic Omurice",
-    description:
-      "Our signature fluffy omelet over savory rice, a comforting favorite reminiscent of a home-cooked meal.",
-    detail: "Weekend lunch favorite",
-  },
-  {
-    src: "/lunch/IMG_4106.JPG",
-    label: "Seasonal Plate",
-    title: "Hidamari Lunch Set",
-    description:
-      "A balanced lunch plate prepared with warm rice, bright sides, and the easy pace of a sunlit meal.",
-    detail: "Served weekends and holidays",
-  },
-  {
-    src: "/lunch/IMG_4118.JPG",
-    label: "Lunch Plate",
-    title: "Freshly Prepared Lunch",
-    description:
-      "A close-up look at the kind of warm, generous plate served during Hidamari lunch hours.",
-    detail: "Prepared during lunch service",
-  },
-  {
-    src: "/lunch/IMG_4124.JPG",
-    label: "Pasta Selection",
-    title: "Mentaiko Pasta",
-    description:
-      "Creamy Japanese-style pasta with a savory finish, plated simply for a relaxed midday meal.",
-    detail: "Lunch pasta option",
-  },
-  {
-    src: "/lunch/IMG_4125.JPG",
-    label: "Pasta Selection",
-    title: "Herb Pasta",
-    description:
-      "Lightly seasoned pasta with herbs, made for guests who want something gentle and satisfying.",
-    detail: "Balanced lunch choice",
-  },
-  {
-    src: "/lunch/IMG_4126.JPG",
-    label: "Rice Bowl",
-    title: "Egg Rice Bowl",
-    description:
-      "Soft egg over rice with savory toppings, a comforting bowl for a slow lunch break.",
-    detail: "Rice bowl favorite",
-  },
-  {
-    src: "/lunch/IMG_4127.JPG",
-    label: "Lunch Plate",
-    title: "Seasonal Lunch Dish",
-    description:
-      "A rotating lunch plate prepared with the day's ingredients and Hidamari's warm service.",
-    detail: "Seasonal availability",
-  },
-  {
-    src: "/lunch/IMG_4128.JPG",
-    label: "Lunch Plate",
-    title: "House Lunch Dish",
-    description:
-      "A hearty plate for guests looking for a filling lunch with familiar Japanese flavors.",
-    detail: "House recommendation",
-  },
-  {
-    src: "/lunch/IMG_4129.JPG",
-    label: "Lunch Plate",
-    title: "Midday Special",
-    description:
-      "One of our weekday-style lunch inspirations, served when lunch service is available.",
-    detail: "Ask staff for details",
-  },
-  {
-    src: "/lunch/IMG_4136.JPG",
-    label: "Lunch Detail",
-    title: "Freshly Plated",
-    description:
-      "Small details from the lunch table, captured just before service.",
-    detail: "Lunch gallery",
-  },
-  {
-    src: "/lunch/IMG_4138.JPG",
-    label: "Lunch Detail",
-    title: "Tabletop Warmth",
-    description:
-      "The calm, casual feeling of a Hidamari lunch, from plate to table.",
-    detail: "Lunch gallery",
-  },
-];
+const LUNCH_SLIDE_IMAGES = [
+  "/lunch/IMG_3891.JPG",
+  "/lunch/IMG_4106.JPG",
+  "/lunch/IMG_4118.JPG",
+  "/lunch/IMG_4124.JPG",
+  "/lunch/IMG_4125.JPG",
+  "/lunch/IMG_4126.JPG",
+  "/lunch/IMG_4127.JPG",
+  "/lunch/IMG_4128.JPG",
+  "/lunch/IMG_4129.JPG",
+  "/lunch/IMG_4136.JPG",
+  "/lunch/IMG_4138.JPG",
+] as const;
 
 const AUTO_SLIDE_INTERVAL = 4000; // 4 seconds
 
 export function LunchPage() {
+  const { t, messages } = useLanguage();
+  const lunchHighlights = LUNCH_SLIDE_IMAGES.map((src, index) => ({
+    src,
+    ...messages.lunch.highlights[index],
+  }));
+
   const [activeHighlight, setActiveHighlight] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const currentHighlight = lunchHighlights[activeHighlight];
@@ -175,35 +105,13 @@ export function LunchPage() {
     <>
       <SiteHeader active="lunch" />
 
-      {/* ── Fixed right sidebar ── */}
-      <aside className="fixed right-0 top-1/2 -translate-y-1/2 z-40 hidden md:flex w-24 flex-col items-center gap-8 rounded-l-2xl border-l border-y border-primary/5 bg-surface-container-low px-4 py-7 sunlit-shadow">
-        <div className="flex flex-col items-center gap-2">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-surface-variant/70 text-primary">
-            <i className="fi fi-sr-utensils text-[24px]" aria-hidden="true" />
-          </div>
-          <span
-            className="font-label-md text-primary uppercase tracking-[0.18em]"
-            style={{ fontSize: "11px", lineHeight: "14px" }}
-          >
-            Reserve
-          </span>
-        </div>
-        <button
-          className="flex h-14 w-14 items-center justify-center rounded-xl text-secondary transition-all hover:bg-primary/5"
-          title="Book a Table"
-        >
-          <i className="fi fi-tr-calendar-day text-[28px]" aria-hidden="true" />
-        </button>
-        
-      </aside>
-
       <main className="pt-20">
 
         {/* ── Hero ── */}
         <section className="relative w-full overflow-hidden" style={{ height: "60vh" }}>
           <Image
             src="/lunch/IMG_4106.JPG"
-            alt="Hidamari Lunch"
+            alt={t("lunch.heroImageAlt")}
             fill
             className="object-cover"
             priority
@@ -211,10 +119,10 @@ export function LunchPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
           <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center w-full px-6">
             <h1 className="font-headline-xl text-primary mb-2" style={{ fontSize: "48px", lineHeight: "56px" }}>
-              LUNCH
+              {t("lunch.heroTitle")}
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto">
-              Experience Tactile Minimalism and Authentic Flavors
+              {t("lunch.heroTagline")}
             </p>
           </div>
         </section>
@@ -225,22 +133,21 @@ export function LunchPage() {
             {/* Red pill badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-paper-white/15 text-paper-white rounded-full font-label-md text-label-md uppercase mb-4">
               <i className="fi fi-rr-info flex text-[17px]" aria-hidden="true" />
-              Service Update
+              {t("lunch.serviceUpdate")}
             </div>
             <h2 className="font-headline-lg text-headline-lg text-paper-white mb-4">
-              Weekday Lunch Suspended
+              {t("lunch.weekdaySuspended")}
             </h2>
             <p className="font-body-md text-body-md text-paper-white/90 leading-relaxed">
-              Starting May 16, we will temporarily suspend weekday lunch service.
-              We remain open continuously on weekends and public holidays.
+              {t("lunch.weekdaySuspendedBody")}
             </p>
             <div className="mt-6 flex justify-center border-t border-paper-white/20 pt-6">
               <div className="flex flex-col items-center">
                 <span className="font-label-md text-label-md text-paper-white font-bold">
-                  WEEKENDS &amp; HOLIDAYS
+                  {t("lunch.weekendsHolidays")}
                 </span>
                 <span className="font-body-md text-body-md text-paper-white/85">
-                  11:30 AM – 2:00 PM (L.O.)
+                  {t("lunch.weekendHours")}
                 </span>
               </div>
             </div>
@@ -253,7 +160,7 @@ export function LunchPage() {
           data-reveal
         >
           <div className="text-center mb-16">
-            <h2 className="font-headline-lg text-headline-lg text-primary">Popular Choices</h2>
+            <h2 className="font-headline-lg text-headline-lg text-primary">{t("lunch.popularChoices")}</h2>
             <div className="w-16 mx-auto mt-1" style={{ height: "2px", backgroundColor: "currentColor", color: "inherit", opacity: 0.7 }} />
           </div>
 
@@ -291,7 +198,7 @@ export function LunchPage() {
                       type="button"
                       onClick={() => handleManualNav(goToPrev)}
                       className="flex h-10 w-10 items-center justify-center rounded-full bg-paper-white/90 text-primary transition hover:bg-paper-white active:scale-95"
-                      aria-label="Previous lunch highlight"
+                      aria-label={t("lunch.prevSlide")}
                     >
                       <i className="fi fi-rr-angle-left text-[18px]" aria-hidden="true" />
                     </button>
@@ -299,7 +206,7 @@ export function LunchPage() {
                       type="button"
                       onClick={() => handleManualNav(goToNext)}
                       className="flex h-10 w-10 items-center justify-center rounded-full bg-paper-white/90 text-primary transition hover:bg-paper-white active:scale-95"
-                      aria-label="Next lunch highlight"
+                      aria-label={t("lunch.nextSlide")}
                     >
                       <i className="fi fi-rr-angle-right text-[18px]" aria-hidden="true" />
                     </button>
@@ -338,7 +245,7 @@ export function LunchPage() {
                             ? "w-8 bg-paper-white"
                             : "w-2.5 bg-paper-white/45 hover:bg-paper-white/75"
                         }`}
-                        aria-label={`Show ${item.title}`}
+                        aria-label={`${t("lunch.showSlide")} ${item.title}`}
                         aria-current={activeHighlight === index}
                       />
                     ))}
@@ -359,13 +266,13 @@ export function LunchPage() {
                 </p>
                 <div className="border-t border-paper-white/20 pt-6">
                   <p className="font-label-md mb-3 text-[14px] font-bold uppercase tracking-[0.04em]">
-                    Lunch Detail
+                    {t("lunch.lunchHoursCard")}
                   </p>
                   <p className="font-body-md text-[16px] leading-[24px] opacity-80">
                     {currentHighlight.detail}
                   </p>
                   <p className="font-body-md mt-4 text-[16px] leading-[24px] opacity-80">
-                    Weekend and holiday lunch: 11:30 AM - 2:00 PM (L.O.)
+                    {t("lunch.weekendHours")}
                   </p>
                 </div>
               </div>
@@ -378,13 +285,10 @@ export function LunchPage() {
         <section className="bg-surface-container-low py-section-gap" data-reveal>
           <div className="max-w-2xl mx-auto px-6 text-center">
             <span className="font-headline-lg text-primary block mb-6 italic">
-              &quot;Hidamari&quot; — A sunny spot.
+              {t("lunch.quote")}
             </span>
             <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-              Hidamari Restaurant is located on the 4th floor of Creekside, just a
-              3-minute walk from Little Tokyo. The name evokes a comforting space where
-              people can relax amidst their busy lives, creating a warm atmosphere
-              reminiscent of returning to one&apos;s home.
+              {t("lunch.quoteBody")}
             </p>
           </div>
         </section>

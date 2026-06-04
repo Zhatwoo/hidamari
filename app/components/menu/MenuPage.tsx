@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/app/components/shared/SiteHeader";
 import { SiteFooter } from "@/app/components/shared/SiteFooter";
+import { useLanguage } from "@/app/components/shared/LanguageProvider";
+import { menuItemDescJa } from "@/app/lib/i18n/menu-item-desc-ja";
+import type { Locale } from "@/app/lib/i18n/types";
 
 /* ─── Menu Data ─────────────────────────────────────────────── */
 
@@ -19,14 +22,16 @@ type Section = {
   categories: Category[];
 };
 
+const appetizerImage = (name: string) =>
+  `/image/Appetizers/${encodeURIComponent(name)}.png`;
+
 const sections: Section[] = [
   {
     id: "appetizers",
     label: "Appetizers",
     jp: "おつまみ",
     schedule: "Available from 17:00",
-    image:
-      "/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo005.png/screen.png",
+    image: appetizerImage("Salted Kelp Cabbage"),
     categories: [
       {
          name: "Appetizers",
@@ -37,24 +42,28 @@ const sections: Section[] = [
             jp: "塩昆布キャベツ",
             desc: "Seasonal cabbage tossed with salted kelp",
             price: "₱180",
+            image: appetizerImage("Salted Kelp Cabbage"),
           },
           {
             name: "Shiokara",
             jp: "塩辛",
             desc: "Salted fermented seafood",
             price: "₱150",
+            image: appetizerImage("Shiokara"),
           },
           {
             name: "Pickled Okra",
             jp: "オクラのお漬物",
             desc: "Crisp okra pickles",
             price: "₱220",
+            image: appetizerImage("Pickled Okra"),
           },
           {
             name: "Edamame",
             jp: "枝豆",
             desc: "Salted steamed soybeans",
             price: "₱180",
+            image: appetizerImage("Edamame"),
           },
         
           {
@@ -62,36 +71,42 @@ const sections: Section[] = [
             jp: "ひじき煮",
             desc: "Simmered hijiki seaweed",
             price: "₱180",
+            image: appetizerImage("Hijiki Ni"),
           },
           {
             name: "Cold Tofu with Natto and Okra",
             jp: "納豆オクラ 冷ややっこ",
             desc: "Silken tofu topped with natto and okra",
             price: "₱250",
+            image: appetizerImage("Cold Tofu with Natto and Okra"),
           },
           {
             name: "Grilled Bacon Wrapped Quail Eggs (2 sticks)",
             jp: "うずらベーコン焼き2本",
             desc: "Bacon-wrapped quail eggs grilled to perfection",
             price: "₱250",
+            image: appetizerImage("Grilled Bacon Wrapped Quail Eggs (2 sticks)"),
           },
           {
             name: "Tako Wasabi",
             jp: "たこわさび",
             desc: "Octopus in wasabi dressing",
             price: "₱220",
+            image: appetizerImage("Tako Wasabi"),
           },
           {
             name: "Cold Tofu with Kimchi",
             jp: "冷ややっこ キムチ",
             desc: "Silken tofu topped with kimchi",
             price: "₱230",
+            image: appetizerImage("Cold Tofu with Kimchi"),
           },
           {
             name: "Western Style Hiyayakko",
             jp: "洋風冷ややっこ",
             desc: "Chilled tofu with western-style toppings",
             price: "₱230",
+            image: appetizerImage("Western Style Hiyayakko"),
           },
          
           {
@@ -99,30 +114,35 @@ const sections: Section[] = [
             jp: "白菜のお漬物",
             desc: "Crisp pickled napa cabbage",
             price: "₱180",
+            image: appetizerImage("Hakusai no Tsukemono"),
           },
           {
             name: "Yakitori Kawa 2 Sticks",
             jp: "焼き鳥 皮 2本",
             desc: "Grilled chicken skin skewers",
             price: "₱220",
+            image: appetizerImage("Yakitori Kawa 2 Sticks"),
           },
           {
             name: "Butter Corn",
             jp: "バターコーン",
             desc: "Sweet corn sautéed in butter",
             price: "₱300",
+            image: appetizerImage("Butter Corn"),
           },
           {
             name: "Shiokara Jaga Butter",
             jp: "塩辛じゃがバター",
             desc: "Potatoes with butter and shiokara",
             price: "₱380",
+            image: appetizerImage("Shiokara Jaga Butter"),
           },
           {
             name: "Pickled Cucumber",
             jp: "きゅうりのお漬物",
             desc: "Crisp pickled cucumber",
             price: "₱180",
+            image: appetizerImage("Pickled Cucumber"),
           },
         ],
       },
@@ -1682,7 +1702,24 @@ const sections: Section[] = [
 
 /* ─── Component ─────────────────────────────────────────────── */
 
+type MenuScheduleId = "lunch" | "dinner" | "drinks" | "bento";
+
+function categoryNote(
+  locale: Locale,
+  note: string | undefined,
+  teishoku: string,
+  hotPot: string
+): string | undefined {
+  if (!note) return undefined;
+  if (locale === "ja") {
+    if (note.includes("2 persons")) return hotPot;
+    if (note.includes("steamed rice")) return teishoku;
+  }
+  return note;
+}
+
 export function MenuPage() {
+  const { locale, t, messages } = useLanguage();
   const [activeTab, setActiveTab] = useState("lunch");
   const tabBarRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -1742,33 +1779,24 @@ export function MenuPage() {
         {/* ── Hero ── */}
         <section className="relative h-[40vh] min-h-[280px] overflow-hidden flex items-end">
           <Image
-            src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo004.png/screen.png"
+            src="/image/Appetizers/IMG_4106.JPG"
             alt="Hidamari menu"
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-ink-black/30 to-ink-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-black/55 via-ink-black/30 to-ink-black/15" />
           <div className="relative z-10 w-full pb-12 text-center">
-            <div className="mx-auto mb-4 inline-flex rounded-full bg-paper-white/85 px-4 py-2 shadow-sm shadow-black/10 backdrop-blur-sm">
-              <Image
-                src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_toplogo.png/screen.png"
-                alt="Hidamari logo"
-                width={140}
-                height={80}
-                className="object-contain"
-              />
-            </div>
-            <span className="font-label-md text-label-md text-paper-white/70 uppercase tracking-[0.3em] block mb-2">
-              ひだまりレストラン
-            </span>
             <h1
-              className="font-headline-xl text-primary"
-              style={{ fontSize: "64px", lineHeight: 1 }}
+              className="font-headline-xl text-paper-white"
+              style={{ fontSize: "64px", lineHeight: 1, textShadow: "0 3px 18px rgba(0,0,0,0.45)" }}
             >
-              MENU
+              {t("menu.heroTitle")}
             </h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant mt-2">
+            <p
+              className="font-body-lg text-body-lg text-paper-white/90 mt-2"
+              style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
+            >
               Lunch · Dinner · Drinks · Bento
             </p>
           </div>
@@ -1791,12 +1819,12 @@ export function MenuPage() {
                     : "border-transparent text-on-surface-variant hover:text-primary hover:border-primary/30"
                 }`}
               >
-                <span>{label}</span>
+                <span>{locale === "ja" ? jp : label}</span>
                 <span
                   className="font-caption opacity-60"
                   style={{ fontSize: "10px", fontFamily: "serif" }}
                 >
-                  {jp}
+                  {locale === "ja" ? label : jp}
                 </span>
               </button>
             ))}
@@ -1825,11 +1853,11 @@ export function MenuPage() {
                     className="font-headline-xl text-primary -mt-3"
                     style={{ fontSize: "44px", lineHeight: "52px" }}
                   >
-                    {section.label}
+                    {locale === "ja" ? section.jp : section.label}
                   </h2>
                   <p className="font-body-md text-body-md text-on-surface-variant mt-2 flex items-center gap-2">
                     <span className="material-symbols-outlined text-tertiary text-base">schedule</span>
-                    {section.schedule}
+                    {messages.menu.schedules[section.id as MenuScheduleId]}
                   </p>
                 </div>
                 {/* Section photo thumbnail */}
@@ -1851,9 +1879,7 @@ export function MenuPage() {
                   <div>
                     <p className="font-label-md text-label-md text-secondary mb-1">How to Order Bento:</p>
                     <p className="font-body-md text-body-md text-on-surface-variant">
-                      Please place your order by phone at{" "}
-                      <strong className="text-primary">02-8659-6120</strong> during ordering hours.
-                      Pick-up is available at the restaurant entrance.
+                      {t("menu.howOrderBentoBody")}
                     </p>
                   </div>
                 </div>
@@ -1863,9 +1889,8 @@ export function MenuPage() {
               {section.id === "lunch" && (
                 <div className="mb-10 bg-warm-accent/8 border border-warm-accent/20 rounded-xl p-5 flex items-start gap-3 reveal-on-scroll">
                   <p className="font-body-md text-body-md text-on-surface-variant">
-                    <strong className="text-warm-accent">Notice:</strong> Weekday lunch is temporarily
-                    suspended from May 16. Lunch is available on{" "}
-                    <strong>weekends and public holidays only</strong>.
+                    <strong className="text-warm-accent">{t("menu.lunchNotice")}</strong>{" "}
+                    {t("menu.lunchNoticeBody")}
                   </p>
                 </div>
               )}
@@ -1918,8 +1943,8 @@ export function MenuPage() {
                                 {item.name}
                               </h3>
                               <span
-                                className="text-primary/30 italic shrink-0"
-                                style={{ fontFamily: "serif", fontSize: "13px" }}
+                                className="text-primary/60 italic shrink-0"
+                                style={{ fontFamily: "serif", fontSize: "14px" }}
                               >
                                 {item.jp}
                               </span>
@@ -1931,10 +1956,11 @@ export function MenuPage() {
                           <div className="flex items-center justify-end gap-3">
                             {item.image && (
                               <div className="overflow-hidden rounded-2xl bg-transparent">
-                                <img
+                                <Image
                                   src={item.image}
                                   alt={item.name}
-                                  loading="lazy"
+                                  width={80}
+                                  height={80}
                                   className="block w-20 h-20 object-contain"
                                 />
                               </div>
@@ -1959,25 +1985,23 @@ export function MenuPage() {
 
             <div className="bg-primary-container rounded-2xl p-8 text-paper-white">
               <span className="material-symbols-outlined text-3xl mb-3 block">liquor</span>
-              <h3 className="font-headline-lg-mobile text-headline-lg-mobile mb-2">Bottle Keep</h3>
+              <h3 className="font-headline-lg-mobile text-headline-lg-mobile mb-2">{t("menu.bottleKeep")}</h3>
               <p className="font-body-md text-body-md opacity-80 leading-relaxed">
-                Store your favourite bottle with us for your next visit. Ask our staff for details
-                on our bottle-keep service — available for whiskey, shochu, and wine.
+                {t("menu.bottleKeepBody")}
               </p>
             </div>
 
             <div className="bg-secondary rounded-2xl p-8 text-paper-white">
               <span className="material-symbols-outlined text-3xl mb-3 block">groups</span>
-              <h3 className="font-headline-lg-mobile text-headline-lg-mobile mb-2">Private Dining</h3>
+              <h3 className="font-headline-lg-mobile text-headline-lg-mobile mb-2">{t("menu.privateDining")}</h3>
               <p className="font-body-md text-body-md opacity-80 leading-relaxed mb-4">
-                Private rooms available for 8–10 and 16–18 guests. Full restaurant buyout
-                accommodates up to 65. Inquire for custom menus and packages.
+                {t("menu.privateDiningBody")}
               </p>
               <Link
                 href="/access"
                 className="inline-flex items-center gap-2 bg-paper-white text-secondary px-5 py-2.5 rounded-xl font-label-md text-label-md hover:opacity-90 transition-all"
               >
-                Enquire Now
+                {t("menu.enquireNow")}
                 <span className="material-symbols-outlined text-base">arrow_forward</span>
               </Link>
             </div>
@@ -1991,7 +2015,7 @@ export function MenuPage() {
             <div className="flex items-center gap-3">
               <span className="material-symbols-outlined text-primary">credit_card</span>
               <span className="font-label-md text-label-md text-on-surface-variant">
-                Cards Accepted
+                {t("menu.cardsAccepted")}
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -2005,9 +2029,7 @@ export function MenuPage() {
               ))}
             </div>
             <p className="font-body-md text-body-md text-on-surface-variant text-center md:text-right">
-              Reservations via phone or in-person.
-              <br />
-              <strong className="text-primary">02-8659-6120</strong>
+              {t("menu.reservationsPhone")}
             </p>
           </div>
         </section>

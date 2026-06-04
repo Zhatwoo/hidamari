@@ -1,26 +1,32 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { LanguageSwitcher } from "@/app/components/shared/LanguageSwitcher";
+import { useLanguage } from "@/app/components/shared/LanguageProvider";
 
 type SiteHeaderProps = {
   active: "home" | "lunch" | "dinner" | "menu" | "access";
 };
 
-const navItems = [
-  { key: "home", label: "Home", href: "/" },
-  { key: "lunch", label: "Lunch", href: "/lunch" },
-  { key: "dinner", label: "Dinner", href: "/dinner" },
-  { key: "menu", label: "Menu", href: "/menu" },
-  { key: "access", label: "Access", href: "/access" },
+const navKeys = [
+  { key: "home", href: "/" },
+  { key: "lunch", href: "/lunch" },
+  { key: "dinner", href: "/dinner" },
+  { key: "menu", href: "/menu" },
+  { key: "access", href: "/access" },
 ] as const;
 
 export function SiteHeader({ active }: SiteHeaderProps) {
+  const { t } = useLanguage();
+
   return (
     <header className="fixed top-0 w-full z-50 bg-paper-white/85 backdrop-blur-md shadow-sm">
-      <nav className="flex justify-between items-center px-6 md:px-margin-desktop h-20 max-w-7xl mx-auto w-full">
-        <Link href="/" className="flex items-center shrink-0">
+      <nav className="flex justify-between items-center px-6 md:px-margin-desktop h-20 max-w-7xl mx-auto w-full gap-4">
+        <Link href="/" className="flex items-center shrink-0 min-w-0">
           <Image
             src="/logo_hidamari-removebg-preview.png"
-            alt="Hidamari logo"
+            alt={t("common.logoAlt")}
             width={250}
             height={250}
             className="object-contain object-left h-20 w-auto max-h-20 shrink-0"
@@ -30,8 +36,8 @@ export function SiteHeader({ active }: SiteHeaderProps) {
             Hidamari
           </span>
         </Link>
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
+        <div className="hidden md:flex items-center gap-6">
+          {navKeys.map((item) => (
             <Link
               key={item.key}
               href={item.href}
@@ -41,13 +47,13 @@ export function SiteHeader({ active }: SiteHeaderProps) {
                   : "text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md"
               }
             >
-              {item.label}
+              {t(`common.nav.${item.key}`)}
             </Link>
           ))}
         </div>
-        <button className="bg-primary text-paper-white px-6 py-2 rounded-xl font-label-md text-label-md active:scale-95 transition-transform duration-200 hover:opacity-90">
-          Book a Table
-        </button>
+        <div className="flex items-center gap-3 shrink-0">
+          <LanguageSwitcher />
+        </div>
       </nav>
     </header>
   );

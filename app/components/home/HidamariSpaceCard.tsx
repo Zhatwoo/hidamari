@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useLanguage } from "@/app/components/shared/LanguageProvider";
 
 const HIDAMARI_SPACE_PHOTOS = [
   "/landingPhotos/hidamariSpace/IMG_3253.JPG",
@@ -11,30 +14,32 @@ const HIDAMARI_SPACE_PHOTOS = [
   "/landingPhotos/hidamariSpace/IMG_3306.JPG",
 ] as const;
 
-const BUBBLE_LAYOUT: { position: string; size: number; alt: string }[] = [
-  { position: "top-[5%] left-[6%]", size: 88, alt: "Private dining room" },
-  { position: "top-[2%] right-[10%]", size: 112, alt: "Restaurant interior" },
-  { position: "top-[36%] left-[24%]", size: 96, alt: "Table setting" },
-  { position: "top-[20%] left-[50%]", size: 72, alt: "Dining detail" },
-  { position: "bottom-[30%] left-[2%]", size: 80, alt: "Warm ambiance" },
-  { position: "bottom-[6%] right-[8%]", size: 124, alt: "Hidamari space overview" },
-  { position: "bottom-[34%] right-[30%]", size: 90, alt: "Seating area" },
-  { position: "top-[54%] right-[4%]", size: 68, alt: "Restaurant atmosphere" },
+const BUBBLE_LAYOUT: { position: string; size: number }[] = [
+  { position: "top-[5%] left-[6%]", size: 88 },
+  { position: "top-[2%] right-[10%]", size: 112 },
+  { position: "top-[36%] left-[24%]", size: 96 },
+  { position: "top-[20%] left-[50%]", size: 72 },
+  { position: "bottom-[30%] left-[2%]", size: 80 },
+  { position: "bottom-[6%] right-[8%]", size: 124 },
+  { position: "bottom-[34%] right-[30%]", size: 90 },
+  { position: "top-[54%] right-[4%]", size: 68 },
 ];
 
 export function HidamariSpaceCard() {
+  const { t, messages } = useLanguage();
+
   return (
     <div className="md:col-span-2 relative overflow-hidden rounded-xl sunlit-shadow bg-surface-container min-h-[420px] md:min-h-0">
       <div className="flex flex-col md:flex-row h-full">
         <div className="p-8 md:p-10 flex flex-col justify-center space-y-4 md:w-[44%] shrink-0 z-10 relative bg-surface-container">
           <span className="text-tertiary font-label-md text-label-md uppercase tracking-widest">
-            Atmosphere
+            {t("hidamariSpace.atmosphere")}
           </span>
-          <h3 className="text-primary font-headline-lg text-headline-lg leading-tight">
-            Hidamari SPACE
+          <h3 className="text-primary font-headline-lg leading-tight" style={{ fontSize: "clamp(22px, 3vw, 32px)" }}>
+            {t("hidamariSpace.title")}
           </h3>
           <p className="text-on-surface-variant font-body-md text-body-md leading-relaxed">
-            Spacious dining and private rooms for up to 65 guests.
+            {t("hidamariSpace.body")}
           </p>
         </div>
 
@@ -63,7 +68,7 @@ export function HidamariSpaceCard() {
               >
                 <Image
                   src={src}
-                  alt={layout.alt}
+                  alt={messages.hidamariSpace.alts[index]}
                   fill
                   sizes={`${layout.size}px`}
                   className="object-cover"
