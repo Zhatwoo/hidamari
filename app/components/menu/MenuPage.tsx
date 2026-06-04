@@ -944,7 +944,7 @@ const sections: Section[] = [
   {
     id: "drinks",
     label: "Drinks",
-    jp: "ドリンク",
+    jp: "飲み物",
     schedule: "Available all day",
     image:
       "/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_drink_btn.png/screen.png",
@@ -1798,7 +1798,7 @@ export function MenuPage() {
               className="font-body-lg text-body-lg text-paper-white/90 mt-2"
               style={{ textShadow: "0 2px 12px rgba(0,0,0,0.35)" }}
             >
-              Lunch · Dinner · Drinks · Bento
+              {t("menu.heroSubtitle")}
             </p>
           </div>
         </section>
@@ -1878,7 +1878,7 @@ export function MenuPage() {
                 <div className="mb-10 bg-secondary-container/30 rounded-xl p-5 flex items-start gap-3 reveal-on-scroll">
                  
                   <div>
-                    <p className="font-label-md text-label-md text-secondary mb-1">How to Order Bento:</p>
+                    <p className="font-label-md text-label-md text-secondary mb-1">{t("menu.howOrderBento")}</p>
                     <p className="font-body-md text-body-md text-on-surface-variant">
                       {t("menu.howOrderBentoBody")}
                     </p>
