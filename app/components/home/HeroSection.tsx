@@ -17,13 +17,13 @@ export function HeroSection() {
   const { locale, t } = useLanguage();
 
   return (
-    <section className="relative z-0 h-[calc(100dvh-5rem)] min-h-[480px] overflow-hidden bg-primary">
+    <section className="relative z-0 min-h-[calc(100dvh-5rem)] overflow-hidden bg-primary sm:h-[calc(100dvh-5rem)] sm:min-h-[480px]">
       <HeroMontageVideo className="absolute inset-0 h-full w-full object-cover" />
 
       <div className="absolute inset-0 bg-black/65" aria-hidden />
-
-      <div className="relative z-10 flex h-full flex-col justify-center items-center px-6 py-8 text-center">
-        <div className="max-w-2xl space-y-6 md:space-y-8">
+<div className="relative z-10 flex min-h-[calc(100dvh-5rem)] flex-col justify-center items-center px-6 py-6 text-center sm:h-full sm:min-h-0 sm:py-8">
+      
+       <div className="max-w-2xl space-y-4 sm:space-y-6 md:space-y-8">
           <span className="inline-flex h-8 items-center rounded-full border border-paper-white/25 bg-paper-white/15 px-5 font-label-md text-[11px] leading-none tracking-widest text-paper-white uppercase backdrop-blur-sm">
             <span className="leading-none pl-[0.1em]">{t("hero.badge")}</span>
           </span>
@@ -72,7 +72,7 @@ export function HeroServiceNotice() {
   const { t } = useLanguage();
 
   return (
-    <div className="relative z-20 max-w-5xl mx-auto w-full px-6 -translate-y-1/2 -mb-20 md:-mb-24">
+    <div className="relative z-20 max-w-5xl mx-auto w-full px-6 -translate-y-6 -mb-6 sm:-translate-y-1/2 sm:-mb-20 md:-mb-24">
       <div className="bg-primary-container rounded-2xl sunlit-shadow overflow-hidden border-l-[6px] border-warm-accent">
         <div className="flex flex-col gap-5 p-6 md:p-7 md:flex-row md:items-center md:gap-6">
           <div className="flex justify-center md:justify-start shrink-0">

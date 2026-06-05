@@ -191,15 +191,15 @@ export function DinnerPage() {
             {/* 12-column auto-rows grid */}
             <div
               className="grid grid-cols-1 md:grid-cols-12 gap-6"
-              style={{ gridAutoRows: "280px" }}
+              style={{ gridAutoRows: "auto" }}
             >
 
               {/* Draft Beer – col-span-8, split image+text */}
               <div
-                className="md:col-span-8 relative rounded-xl overflow-hidden sunlit-shadow bg-paper-white flex flex-col md:flex-row group transition-all duration-300"
+               className="md:col-span-8 relative rounded-xl overflow-hidden sunlit-shadow bg-paper-white flex flex-col md:flex-row group transition-all duration-300 h-auto md:h-full"
                 data-reveal
               >
-                <div className="relative w-full md:w-1/2 h-48 md:h-full overflow-hidden">
+            <div className="relative w-full h-56 md:w-1/2 md:h-full overflow-hidden">
                   <Image
                     src="/dinner/IMG_3036.JPG"
                     alt={messages.dinner.alts.draftBeer}
