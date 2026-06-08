@@ -26,6 +26,9 @@ type Section = {
 const appetizerImage = (name: string) =>
   `/image/Appetizers/${encodeURIComponent(name)}.png`;
 
+const bentoImage = (file: string) =>
+  `/image/Bento/${encodeURIComponent(file)}`;
+
 const sections: Section[] = [
   {
     id: "appetizers",
@@ -1587,41 +1590,110 @@ const sections: Section[] = [
     label: "Bento",
     jp: "お弁当",
     schedule: "Order: 10:00–13:30 · Pick-up: 11:30–14:00",
-    image:
-      "/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo005.png/screen.png",
+    image: "/image/bento-section.png",
     categories: [
       {
-        name: "Bento Boxes",
-        jp: "お弁当",
-        note: "All bento boxes include premium Koshihikari rice, seasonal pickles, and a small miso soup",
+        name: "Bento Menu",
+        jp: "お弁当メニュー",
+        note: "All bento include miso soup and are VAT-inclusive · Pick-up only · Order at least 1 hour before pick-up",
         items: [
           {
-            name: "Standard Bento",
-            jp: "スタンダード弁当",
-            desc: "Chicken teriyaki or grilled salmon · tamagoyaki · simmered seasonal vegetable",
-            price: "₱480",
-            
+            name: "Torigara Hiyashi Salad Somen",
+            jp: "鶏がら冷やしサラダそうめん",
+            desc: "Cold somen noodles with chicken broth salad",
+            price: "₱380",
+            image: bentoImage("torigara hiyashi salad somen.png"),
           },
           {
-            name: "Premium Bento",
-            jp: "プレミアム弁当",
-            desc: "Wagyu beef slice · sashimi (2 kinds) · chawanmushi · seasonal assorted sides",
-            price: "₱680",
-           
+            name: "Salad Ramen",
+            jp: "サラダラーメン",
+            desc: "Chilled ramen with fresh salad and dressing",
+            price: "₱380",
+            image: bentoImage("Salad Ramen.png"),
           },
           {
-            name: "Vegetable Bento",
-            jp: "野菜弁当",
-            desc: "Agedashi tofu · simmered pumpkin · inari sushi · pickled vegetables",
-            price: "₱420",
-           
+            name: "Makunouchi Bento",
+            jp: "日替わり幕の内弁当",
+            desc: "Daily changing makunouchi bento with assorted sides",
+            price: "₱500",
+            image: bentoImage("Manunouchi bento.png"),
           },
           {
-            name: "Kids Bento",
-            jp: "お子様弁当",
-            desc: "Mini omurice · karaage (2 pcs) · tamagoyaki · seasonal fruit",
+            name: "Buta Shogayaki Bento",
+            jp: "豚生姜焼き弁当",
+            desc: "Pork ginger stir-fry with rice · Best seller",
+            price: "₱330",
+            image: bentoImage("buta shogayaki bento.png"),
+          },
+          {
+            name: "Shake Shioyaki Bento",
+            jp: "鮭塩焼き弁当",
+            desc: "Salt-grilled salmon with rice",
+            price: "₱330",
+            image: bentoImage("shake shioyaki bento.png"),
+          },
+          {
+            name: "Yasai Itame Bento",
+            jp: "野菜炒め弁当",
+            desc: "Stir-fried vegetables with rice",
+            price: "₱330",
+            image: bentoImage("yasai itame bento.png"),
+          },
+          {
+            name: "Karaage Bento",
+            jp: "からあげ弁当",
+            desc: "Japanese fried chicken with rice",
+            price: "₱330",
+            image: bentoImage("karaage bento.png"),
+          },
+          {
+            name: "Chicken Nanban Bento",
+            jp: "チキン南蛮弁当",
+            desc: "Fried chicken with tartar sauce and rice",
+            price: "₱330",
+            image: bentoImage("chicken nanban.png"),
+          },
+          {
+            name: "Hamburger & Spaghetti Bento",
+            jp: "ハンバーグ & スパゲティ弁当",
+            desc: "Hamburger patty with spaghetti and rice",
+            price: "₱330",
+            image: bentoImage("humberger and sphagetti bento.png"),
+          },
+          {
+            name: "Menchikatsu Bento",
+            jp: "メンチカツ弁当",
+            desc: "Breaded minced meat cutlet with rice",
+            price: "₱330",
+            image: bentoImage("menchikatsu bento.png"),
+          },
+          {
+            name: "Shiromi Sakana Fry Bento",
+            jp: "白身魚フライ弁当",
+            desc: "Fried white fish with rice",
+            price: "₱330",
+            image: bentoImage("shiromi sakana fry bento.png"),
+          },
+          {
+            name: "Chahan & Gyoza Bento",
+            jp: "炒飯 & 餃子弁当",
+            desc: "Fried rice with gyoza",
+            price: "₱330",
+            image: bentoImage("chahan & gyoza bento.png"),
+          },
+          {
+            name: "Oyakodon",
+            jp: "親子丼",
+            desc: "Chicken and egg simmered over rice",
             price: "₱320",
-            
+            image: bentoImage("oyakkodon.png"),
+          },
+          {
+            name: "Gyudon",
+            jp: "牛丼",
+            desc: "Simmered beef and onions over rice",
+            price: "₱320",
+            image: bentoImage("gyudon.png"),
           },
         ],
       },
@@ -1632,8 +1704,7 @@ const sections: Section[] = [
     label: "Desserts",
     jp: "デザート",
     schedule: "Available all day",
-    image:
-      "/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo003.png/screen.png",
+    image: "/image/desserts-section.png",
     categories: [
       {
         name: "Carmen's Best Ice Cream",
@@ -1807,7 +1878,7 @@ export function MenuPage() {
     <>
       <SiteHeader active="menu" />
 
-      <main className="pt-[9.5rem] bg-background">
+      <main className="pt-20 bg-background">
 
         {/* ── Hero ── */}
         <section className="relative h-[40vh] min-h-[280px] overflow-hidden flex items-end">
@@ -1838,7 +1909,7 @@ export function MenuPage() {
         {/* ── Sticky Tab Navigation ── */}
         <div
           ref={tabBarRef}
-          className="fixed md:sticky left-0 right-0 z-40 bg-paper-white/90 backdrop-blur-md border-b border-primary/10 shadow-sm top-16 md:top-[80px]"
+          className="sticky top-16 md:top-20 z-40 bg-paper-white/90 backdrop-blur-md border-b border-primary/10 shadow-sm"
         >
           <div className="max-w-5xl mx-auto flex items-center gap-2 px-3 sm:px-4 md:px-6 py-1">
             <div className="min-w-0 flex-1 flex items-center justify-start md:justify-center gap-1 sm:gap-6 md:gap-20 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -1882,9 +1953,6 @@ export function MenuPage() {
             </button>
           </div>
         </div>
-
-        {/* mobile spacer to avoid fixed tab overlap on small screens */}
-        <div className="md:hidden h-16" />
 
         {/* ── Search Bar (Conditional) ── */}
         {searchOpen && (
@@ -1940,7 +2008,7 @@ export function MenuPage() {
               key={section.id}
               id={section.id}
               ref={(el) => { sectionRefs.current[section.id] = el; }}
-              className="py-16 border-b border-primary/10 last:border-0"
+              className="pb-16 md:pb-20 border-b border-primary/10 last:border-0"
             >
               {/* Section header */}
               <div className="flex flex-col md:flex-row md:items-end gap-6 mb-12 reveal-on-scroll">
@@ -1975,14 +2043,17 @@ export function MenuPage() {
 
               {/* Special bento order note */}
               {section.id === "bento" && (
-                <div className="mb-10 bg-secondary-container/30 rounded-xl p-5 flex items-start gap-3 reveal-on-scroll">
-                 
+                <div className="mb-10 bg-secondary-container/30 rounded-xl p-5 reveal-on-scroll space-y-4">
                   <div>
                     <p className="font-label-md text-label-md text-secondary mb-1">{t("menu.howOrderBento")}</p>
                     <p className="font-body-md text-body-md text-on-surface-variant">
                       {t("menu.howOrderBentoBody")}
                     </p>
                   </div>
+                  <p className="inline-flex items-center gap-2 rounded-full bg-paper-white/80 border border-secondary/25 px-4 py-2 font-label-md text-label-md text-primary">
+                    <span className="material-symbols-outlined text-base text-secondary">info</span>
+                    {t("menu.bentoMinOrder")}
+                  </p>
                 </div>
               )}
 

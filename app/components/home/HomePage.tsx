@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { HeroSection, HeroServiceNotice } from "@/app/components/home/HeroSection";
 import { HidamariSpaceCard } from "@/app/components/home/HidamariSpaceCard";
-import { HIDAMARI_GOOGLE_MAPS_URL } from "@/app/lib/site-links";
+import { HIDAMARI_GOOGLE_MAPS_URL, HIDAMARI_PHONE_DISPLAY, HIDAMARI_PHONE_TEL } from "@/app/lib/site-links";
 import { ContactIcon } from "@/app/components/shared/icons/ContactIcons";
+import { BentoIcon } from "@/app/components/shared/icons/SideNavIcons";
 import { GoogleMapEmbed } from "@/app/components/shared/GoogleMapEmbed";
 import { SiteFooter } from "@/app/components/shared/SiteFooter";
 import { SiteHeader } from "@/app/components/shared/SiteHeader";
 import { useLanguage } from "@/app/components/shared/LanguageProvider";
-import { HIDAMARI_PHONE_DISPLAY } from "@/app/lib/site-links";
 
 export function HomePage() {
   const { t, messages } = useLanguage();
@@ -169,6 +170,74 @@ export function HomePage() {
                 </div>
               </div>
 
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════
+            BENTO
+        ══════════════════════════════════════════ */}
+        <section className="py-section-gap bg-surface-container-low" id="bento">
+          <div className="max-w-7xl mx-auto px-6 md:px-margin-desktop">
+            <div className="grid md:grid-cols-2 rounded-2xl overflow-hidden sunlit-shadow bg-paper-white border border-primary/5">
+              <div className="relative min-h-[280px] md:min-h-full">
+                <Image
+                  src="/stitch_hidamari_inspired_portfolio/image_from_https_hidamari_restaurant.com_images_photo005.png/screen.png"
+                  alt={messages.home.alts.bento}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-black/40 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-ink-black/10" />
+              </div>
+              <div className="p-8 md:p-10 flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                    <BentoIcon className="w-6 h-6 text-primary" />
+                  </div>
+                  <span className="font-label-md text-label-md text-tertiary uppercase tracking-[0.2em]">
+                    {t("home.bentoLabel")}
+                  </span>
+                </div>
+                <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-3">
+                  {t("home.bentoTitle")}
+                </h2>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-4">
+                  {t("home.bentoBody")}
+                </p>
+                <p className="inline-flex items-center gap-2 self-start rounded-full bg-secondary-container/30 border border-secondary/20 px-4 py-2 font-label-md text-label-md text-primary mb-6">
+                  <span className="material-symbols-outlined text-base text-secondary">info</span>
+                  {t("home.bentoMinOrder")}
+                </p>
+                <div className="grid grid-cols-2 gap-3 mb-8">
+                  <div className="bg-surface-container-low rounded-xl p-4">
+                    <span className="font-label-md text-label-md text-tertiary uppercase tracking-wider block mb-1">
+                      {t("home.bentoOrderTime")}
+                    </span>
+                    <p className="font-body-md text-body-md text-primary font-semibold">10:00 – 13:30</p>
+                  </div>
+                  <div className="bg-surface-container-low rounded-xl p-4">
+                    <span className="font-label-md text-label-md text-tertiary uppercase tracking-wider block mb-1">
+                      {t("home.bentoPickUpTime")}
+                    </span>
+                    <p className="font-body-md text-body-md text-primary font-semibold">11:30 – 14:00</p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    href="/menu#bento"
+                    className="inline-flex items-center justify-center bg-secondary text-paper-white px-6 py-3 rounded-xl font-label-md text-label-md hover:bg-secondary/90 active:scale-95 transition-all"
+                  >
+                    {t("home.bentoViewMenu")}
+                  </Link>
+                  <a
+                    href={HIDAMARI_PHONE_TEL}
+                    className="inline-flex items-center justify-center border border-primary/25 text-primary px-6 py-3 rounded-xl font-label-md text-label-md hover:bg-surface-container-low active:scale-95 transition-all"
+                  >
+                    {t("home.bentoCallUs")}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>

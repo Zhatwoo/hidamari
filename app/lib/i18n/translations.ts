@@ -90,6 +90,15 @@ export const translations = {
       openingHoursWeekdays: "Weekdays: 17:00 - 24:00 (Dinner Only)",
       openingHoursWeekends: "Weekends: 11:30 - 24:00",
       getDirections: "Get Directions",
+      bentoLabel: "Bento",
+      bentoTitle: "Order Bento for Pick-up",
+      bentoBody:
+        "Pre-order bento boxes by phone during lunch service. Pick up at the restaurant entrance within the window below.",
+      bentoMinOrder: "Minimum order: 10 bento boxes per order",
+      bentoOrderTime: "Order Time",
+      bentoPickUpTime: "Pick-up Time",
+      bentoViewMenu: "View Bento Menu",
+      bentoCallUs: "Call to Order",
       alts: {
         philosophy:
           "Hidamari dining room with warm orange walls and wooden tables",
@@ -97,6 +106,7 @@ export const translations = {
         premiumSake: "Premium Japanese sake, shochu, and whisky bottles at Hidamari",
         eveningDining:
           "Evening dining with chicken nanban and tartar sauce at Hidamari",
+        bento: "Hidamari bento boxes for pick-up",
       },
     },
     hidamariSpace: {
@@ -266,6 +276,7 @@ export const translations = {
       howOrderBento: "How to Order Bento",
       howOrderBentoBody:
         "Please place your order by phone at 02-8659-6120 during ordering hours. Pick-up is available at the restaurant entrance.",
+      bentoMinOrder: "Minimum order: 10 bento boxes per order",
       lunchNotice: "Notice:",
       lunchNoticeBody:
         "Weekday lunch is temporarily suspended from May 16. Lunch is available on weekends and public holidays only.",
@@ -290,7 +301,7 @@ export const translations = {
         hotPot: "Served for a minimum of 2 persons",
       },
       bentoNote:
-        "All bento boxes include premium Koshihikari rice, seasonal pickles, and a small miso soup",
+        "All bento include miso soup and are VAT-inclusive · Pick-up only · Order at least 1 hour before pick-up",
     },
     access: {
       contact: "Contact",
@@ -441,11 +452,21 @@ export const translations = {
       openingHoursWeekdays: "平日：17:00〜24:00（晩ごはんのみ）",
       openingHoursWeekends: "週末・祝日：11:30〜24:00",
       getDirections: "道順を見る",
+      bentoLabel: "弁当",
+      bentoTitle: "お弁当のご注文・お受け取り",
+      bentoBody:
+        "昼ごはん営業時間中、お電話にて事前ご注文を承ります。店舗入口にてお受け取りいただけます。",
+      bentoMinOrder: "最低ご注文数：10個から",
+      bentoOrderTime: "ご注文受付",
+      bentoPickUpTime: "お受け取り",
+      bentoViewMenu: "弁当メニューを見る",
+      bentoCallUs: "お電話で注文",
       alts: {
         philosophy: "暖色の壁と木のテーブルがあるひだまりのダイニングルーム",
         weekendLunch: "ひだまりの週末昼ごはんと日本の小皿料理",
         premiumSake: "ひだまりの日本酒・焼酎・ウイスキー",
         eveningDining: "晩ごはんのチキン南蛮とタルタルソース",
+        bento: "ひだまりのお弁当",
       },
     },
     hidamariSpace: {
@@ -614,6 +635,7 @@ export const translations = {
       howOrderBento: "弁当のご注文方法",
       howOrderBentoBody:
         "ご注文はお電話（02-8659-6120）にて、受付時間内にお願いいたします。店舗入口にてお受け取りいただけます。",
+      bentoMinOrder: "最低ご注文数：10個から",
       lunchNotice: "ご案内：",
       lunchNoticeBody:
         "5月16日より平日の昼ごはんは一時休止しております。昼ごはんは週末・祝日のみのご提供となります。",
@@ -637,7 +659,7 @@ export const translations = {
         hotPot: "2名様よりご注文承ります",
       },
       bentoNote:
-        "各弁当にコシヒカリご飯・季節のお新香・小さな味噌汁付き",
+        "全てのお弁当に味噌汁付き・税込み · お持ち帰りのみ · 受け取り1時間前までにご注文ください",
     },
     access: {
       contact: "お問い合わせ",

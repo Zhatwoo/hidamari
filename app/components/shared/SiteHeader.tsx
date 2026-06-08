@@ -12,8 +12,6 @@ type SiteHeaderProps = {
 
 const navKeys = [
   { key: "home", href: "/" },
-  { key: "lunch", href: "/lunch" },
-  { key: "dinner", href: "/dinner" },
   { key: "menu", href: "/menu" },
   { key: "access", href: "/access" },
 ] as const;
@@ -24,8 +22,8 @@ export function SiteHeader({ active }: SiteHeaderProps) {
 
   return (
     <header className="fixed top-0 w-full z-50 bg-paper-white/85 backdrop-blur-md shadow-sm">
-      <nav className="relative flex justify-between items-center px-6 md:px-margin-desktop h-16 md:h-20 max-w-7xl mx-auto w-full gap-4">
-        <Link href="/" className="flex items-center shrink-0 min-w-0">
+      <nav className="relative flex justify-between md:grid md:grid-cols-3 items-center px-6 md:px-margin-desktop h-16 md:h-20 max-w-7xl mx-auto w-full gap-4">
+        <Link href="/" className="flex items-center shrink-0 min-w-0 md:justify-self-start">
           <Image
             src="/logo_hidamari-removebg-preview.png"
             alt={t("common.logoAlt")}
@@ -39,7 +37,7 @@ export function SiteHeader({ active }: SiteHeaderProps) {
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center justify-center gap-6">
           {navKeys.map((item) => (
             <Link
               key={item.key}
@@ -55,7 +53,7 @@ export function SiteHeader({ active }: SiteHeaderProps) {
           ))}
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-3 shrink-0 md:justify-self-end">
           <LanguageSwitcher />
           <button
             type="button"

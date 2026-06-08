@@ -13,8 +13,6 @@ export function SiteFooter() {
   const exploreLinks = [
     { label: t("common.nav.home"), href: "/" },
     { label: t("common.nav.menu"), href: "/menu" },
-    { label: t("common.nav.lunch"), href: "/lunch" },
-    { label: t("common.nav.dinner"), href: "/dinner" },
   ] as const;
 
   const shopInfoLinks = [
